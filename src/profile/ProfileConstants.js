@@ -1,0 +1,2 @@
+export const FETCHING = "FETCHING"
+export const PROJECT_TYPE_CHANGED = "PROJECT_TYPE_CHANGED"
