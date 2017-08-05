@@ -2,57 +2,158 @@ import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import variables, { layout, font } from '../../styles/variables'
+import MyBookmarkedProjects from './MyBookmarkedProjects'
  
 export default class ProfileHeader extends Component {
 	render() {
 		let {
 			user,
+			lastBookmarks
 		} = this.props
 
 		return (
 			<View style={styles.container}>
 				<View style={styles.backContainer}>
 					<View style={styles.nameAvatarContainer}>
-				        <Image
+				        <Image 
 				          style={styles.avatar}
 				          source={{uri: user.get('avatar_url')}}
 				        />
 				        <Text style={styles.name}>{user.get('first_name')} {user.get('last_name')}</Text>
 				        
-				        <Icon name="md-more" 
+				        {/*<Icon name="md-more" 
 				              size={30} 
 				              color={variables.BRAND_BLACK}
-				        />
+				        />*/}
 			        </View>
 			        <View style={styles.itcBidsContainer}>
-			        	<View style={[layout.row, { padding: 3, height: 63, }]}>
-					    	<TouchableOpacity style={styles.itemContainer} onPress={this.props.onGPNavigation}>
-					    		<View style={[layout.row]}>
-					    			<View style={[layout.centerCenter, { width: 50, }]}> 
-					    			<Text style={[styles.bidsCount, styles.h4, { textAlign: 'center' }]}>{user.get('geru_point')}</Text>
-							        </View>
-							        <View style={[layout.centerCenter, { flex: 1, }]}>
-							        	<Text style={[layout.h4, {color:variables.BRAND_GRAY}]}>ГЭРҮ ОНОО</Text>
-							        </View>
-						        </View>
-					        </TouchableOpacity>
-
-					        
-				        </View>
-
-				        <View style={[layout.row, { padding: 3, height: 63, }]}>
-					        <TouchableOpacity style={styles.itemContainer} onPress={this.props.onPortfolioNavigation}>
-					        	<View style={[layout.row]}>
-					        		<View style={[layout.centerCenter, { width: 40, }]}> 
-							        	<Text style={[styles.bidsCount, styles.h4, { textAlign: 'center' }]}>{ user.get('tag_count') }</Text>
-							        </View>
-							        <View style={[layout.centerCenter, { flex: 1, }]}>
-							        	<Text style={[layout.h4, {color:variables.BRAND_GRAY}]}> ТАГ</Text>
-							        </View>
-						        </View>
-					        </TouchableOpacity>
-				        </View>
+			        	<MyBookmarkedProjects lastBookmarks={lastBookmarks}
+			        					      onBookmarkDetailPressed={this.props.onBookmarkDetailPressed}
+			        	/>
 			        </View>
+
+			        <View style={{ paddingHorizontal: 20,  paddingVertical: 10, }}>
+			        	<View style={{ paddingVertical: 3, }}>
+			        		<Text style={[layout.h2, ]}>Payment method</Text>
+			        	</View>
+			        	
+			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', borderTopWidth: 1, borderTopColor: '#efefef'}]}>
+			        		<View style={[layout.centerCenter, { padding: 3, }]}>
+			        			<Icon name="md-settings"
+			        				  size={24}
+			        				  color={variables.BRAND_RED}
+			        			/>
+			        		</View>
+			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
+			        			<Text style={[layout.h2, ]}>5550 **** **** ****</Text>
+			        			<Text style={[layout.h2, { color: '#b5b5b5' }]}>Verified</Text>
+			        		</View>
+			        		<View style={[layout.centerCenter, { paddingHorizontal: 7, }]}>
+			        			{/*<Icon name="md-checkmark"
+			        				  size={24}
+			        				  color={variables.BRAND_GREEN}
+			        			/>*/}
+			        		</View>
+			        	</View>
+			        </View>
+
+			        <View style={{ paddingHorizontal: 20,  paddingVertical: 10, }}>
+			        	<View style={{ paddingVertical: 3, }}>
+			        		<Text style={[layout.h2, ]}>Agreements</Text>
+			        	</View>
+			        	
+			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', borderTopWidth: 1, borderTopColor: '#efefef'}]}>
+			        		<View style={[layout.centerCenter, { padding: 3, }]}>
+			        			<Icon name="md-settings"
+			        				  size={24}
+			        				  color={variables.BRAND_RED}
+			        			/>
+			        		</View>
+			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
+			        			<Text style={[layout.h2, ]}>Privacy</Text>
+			        			{/*<Text style={[layout.h2, { color: '#b5b5b5' }]}>Connected</Text>*/}
+			        		</View>
+			        	</View>
+			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', }]}>
+			        		<View style={[layout.centerCenter, { padding: 3, }]}>
+			        			<Icon name="md-settings"
+			        				  size={24}
+			        				  color={variables.BRAND_RED}
+			        			/>
+			        		</View>
+			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
+			        			<Text style={[layout.h2, ]}>Terms and conditions</Text>
+			        			{/*<Text style={[layout.h2, { color: '#b5b5b5' }]}>Not Connected</Text>*/}
+			        		</View>
+			        		<View style={[layout.centerCenter, { paddingHorizontal: 7, }]}>
+			        			
+			        		</View>
+			        	</View>
+			        </View>
+
+			        <TouchableOpacity style={{ paddingHorizontal: 20,  paddingVertical: 10, }}>
+			        	<View style={{ paddingVertical: 3, }}>
+			        		<Text style={[layout.h2, ]}>Integrations</Text>
+			        	</View>
+			        	
+			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', borderTopWidth: 1, borderTopColor: '#efefef'}]}>
+			        		<View style={[layout.centerCenter, { padding: 3, }]}>
+			        			<Icon name="md-settings"
+			        				  size={24}
+			        				  color={variables.BRAND_RED}
+			        			/>
+			        		</View>
+			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
+			        			<Text style={[layout.h2, ]}>Facebook</Text>
+			        			<Text style={[layout.h2, { color: '#b5b5b5' }]}>Connected</Text>
+			        		</View>
+			        		<View style={[layout.centerCenter, { paddingHorizontal: 7, }]}>
+			        			<Icon name="md-checkmark"
+			        				  size={24}
+			        				  color={variables.BRAND_GREEN}
+			        			/>
+			        		</View>
+			        	</View>
+			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', }]}>
+			        		<View style={[layout.centerCenter, { padding: 3, }]}>
+			        			<Icon name="md-settings"
+			        				  size={24}
+			        				  color={variables.BRAND_RED}
+			        			/>
+			        		</View>
+			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
+			        			<Text style={[layout.h2, ]}>Twitter</Text>
+			        			<Text style={[layout.h2, { color: '#b5b5b5' }]}>Not Connected</Text>
+			        		</View>
+			        		<View style={[layout.centerCenter, { paddingHorizontal: 7, }]}>
+			        			{/*<Icon name="md-checkmark"
+			        				  size={24}
+			        				  color={variables.BRAND_GREEN}
+			        			/>*/}
+			        		</View>
+			        	</View>
+			        </TouchableOpacity>
+
+			        <TouchableOpacity style={{ paddingHorizontal: 20, }}>
+				        <View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', }]}>
+			        		<View style={[layout.centerCenter, { padding: 3, }]}>
+			        			<Icon name="md-settings"
+			        				  size={24}
+			        				  color={variables.BRAND_RED}
+			        			/>
+			        		</View>
+			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
+			        			<Text style={[layout.h2, ]}>Logout</Text>
+			        			{/*<Text style={[layout.h2, { color: '#b5b5b5' }]}>Not Connected</Text>*/}
+			        		</View>
+			        		<View style={[layout.centerCenter, { paddingHorizontal: 7, }]}>
+			        			{/*<Icon name="md-checkmark"
+			        				  size={24}
+			        				  color={variables.BRAND_GREEN}
+			        			/>*/}
+			        		</View>
+			        	</View>
+		        	</TouchableOpacity>
 			    </View>
 			</View>
 		)
@@ -73,24 +174,24 @@ var styles = StyleSheet.create({
 	},
 
 	container: {
-		height: 220, //220
-		paddingHorizontal: 10,
+		//height: 220, //220
+		//paddingHorizontal: 10,
 		//paddingTop: 20,
 		//paddingBottom: 0,
 	},
 
 	backContainer: {
-		flex: 1,
+		//flex: 1,
 		//backgroundColor: '#fff',
 		borderRadius: 10,
 	},
 
 	nameAvatarContainer: {
 		//flex: 1,
-		height: 84,
+		height: 120,
 		flexDirection: 'row',
-		paddingHorizontal: 5,
-		paddingVertical: 10,
+		paddingHorizontal: 20,
+		paddingVertical: 20,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -114,16 +215,16 @@ var styles = StyleSheet.create({
 	},
 
 	avatar: {
-		height: 48,
-		width: 48,
-		borderRadius: 48,
+		height: 80,
+		width: 80,
+		borderRadius: 80,
 	},
 
 	itcBidsContainer: {
 		//flex: 1,
-		flex: 1,
-		//paddingVertical: 10,
-		//paddingHorizontal: 10,
+		//flex: 1,
+		//paddingVertical: 20,
+		//paddingHorizontal: 20,
 	},
 
 	bidsCount: {
@@ -132,8 +233,9 @@ var styles = StyleSheet.create({
 
 	name: {
 		fontFamily: font.heavy,
+		color: variables.BRAND_BLACK,
 		fontSize: 24, 
-		marginLeft: 10,
+		marginLeft: 20,
 		flex: 1,
 	}
 })

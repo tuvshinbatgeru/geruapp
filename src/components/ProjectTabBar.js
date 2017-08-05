@@ -58,9 +58,16 @@ const ProjectTabBar = React.createClass({
       alignItems: 'center',
     }
 
-    const left = this.props.scrollValue.interpolate({
-      inputRange: [0, 1, ], outputRange: [0,  containerWidth / numberOfTabs, ],
-    })
+    const left = {
+      transform: [
+        {
+          translateX: this.props.scrollValue.interpolate({
+            inputRange: [0, 1,], 
+            outputRange: [0, containerWidth / numberOfTabs,],
+          })
+        }
+      ]
+    }
 
     let {
       fixed
@@ -79,7 +86,7 @@ const ProjectTabBar = React.createClass({
           )
         })
       }
-      <Animated.View style={[tabUnderlineStyle, { left, }, this.props.underlineStyle, ]}>
+      <Animated.View style={[tabUnderlineStyle, left, this.props.underlineStyle, ]}>
           <View style={{ height: 2, width: 50, borderRadius: 10, backgroundColor: '#FE5F55',}}/>
       </Animated.View>
     </View>

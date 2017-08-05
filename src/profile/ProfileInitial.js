@@ -21,6 +21,293 @@ var InitialState = Record({
     tag_count: 3,
   })(),
 
+  allBookmarks: Record({
+    fetching: false,
+    tags: [{
+      name: 'Dress',
+    }, {
+      name: 'Shoes',
+    }, {
+      name: 'Book',
+    }, {
+      name: 'Deel',
+    }],
+    bookmarks: [],
+  })(),
+  /*allBookmarks: Record({
+    fetching: false,
+    tags: [{
+      name: 'Dress',
+    }, {
+      name: 'Shoes',
+    }, {
+      name: 'Book',
+    }, {
+      name: 'Deel',
+    }],
+    bookmarks: [{
+          id: 1,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'http://www.feelgift.com/media/productdetail/ACCESSORIES/phone-accessories/Wooden-Headphone-Wrap-Winder-Cable-Cord-Organizer-christmas-gifts-cool-stuffs-feelgift-6.jpg',
+            ratio: 1.62
+          },
+          price: 120000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 2,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/4f/72/0f/4f720f57202a389d4f5b20f40b1f5fe7.jpg',
+            ratio: 1.9
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 3,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/b7/b9/c5/b7b9c5f507804527e7495e9cd7dbff99.jpg',
+            ratio: 1.1
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 4,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/16/99/c3/1699c3c4c3e450d88352f7163415d7ee.jpg',
+            ratio: 3.4
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 5,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/6a/4a/38/6a4a380532c312b20cb86b7edc7a4483.jpg',
+            ratio: 2.9
+          },
+          price: 150000,
+           user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 6,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/6b/f8/51/6bf8512742d7c372e7204499c3ee7ae3.jpg',
+            ratio: 1.1
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 7,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/da/ae/fc/daaefced370e23ce49e8ccf7b36eb874.jpg',
+            ratio: 6.7
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 8,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/96/83/00/9683001c846525a847b906644c292d9e.jpg',
+            ratio: 1.5
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 9,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/1c/c9/5f/1cc95fba50ae7cfa2d46b19c3cbaba00.jpg',
+            ratio: 1.5
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 10,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/31/c9/c2/31c9c2c564a350500fa9cec97ada2daf.jpg',
+            ratio: 1.5
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 11,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/54/b7/37/54b7370018cb1ccead522bff62042e4a.jpg',
+            ratio: 1.5
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 12,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/4d/46/ac/4d46acc8b9f7a7a145ec06e3c1a4bb8e.jpg',
+            ratio: 1.5
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 13,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/d7/57/78/d7577857c824c847daa3812437030fe6.jpg',
+            ratio: 1.5
+          },
+          price: 150000,
+          user: {
+            first_name: 'Tuvshinbat',
+            last_name: 'Gansukh',
+            avatar_url: 'https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p240x240/14519769_1217461761646711_8188619900720286252_n.jpg?oh=d31c64e3c3d7e62faf01317a0750605c&oe=5A3672D3',
+          },
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }, {
+          id: 14,
+          caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
+          collage: {
+            url: 'https://s-media-cache-ak0.pinimg.com/564x/1c/c9/5f/1cc95fba50ae7cfa2d46b19c3cbaba00.jpg',
+            ratio: 1.5
+          },
+          price: 150000,
+          tags: [{
+            name: 'дээл',
+          }, {
+            name: 'гоёмсог'
+          }]
+        }]
+  })(),*/
+
+  lastBookmarks: Record({
+    fetching: false,
+    bookmarks: [{
+      cover_url: "https://s-media-cache-ak0.pinimg.com/564x/62/2d/1a/622d1a7c04d689a3714d594e925b3108.jpg",
+    }, {
+      cover_url: "https://s-media-cache-ak0.pinimg.com/564x/ac/9e/65/ac9e657b32006d7542b834be8c5e9e8b.jpg",
+    }, {
+      cover_url: "https://s-media-cache-ak0.pinimg.com/564x/a1/e8/c5/a1e8c56d0c619f3e51e686a3b407e892.jpg",
+    }, {
+      cover_url: "https://s-media-cache-ak0.pinimg.com/564x/76/dc/2e/76dc2e00e44f9efb223a0b7b43416dde.jpg",
+    }]
+  })(),
+
   workingOnProjects: [{
     name: 'Дээлэн палаж цэнхэр ороолготой',
     end_date: "Нөгөөдөр, 6-сар 12н 18:00",

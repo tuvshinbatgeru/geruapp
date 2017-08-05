@@ -1,8 +1,21 @@
 module.exports = {
   SESSION_TOKEN_KEY: 'SESSION_TOKEN_KEY',
   backend: {
-  	laravelLocal: true,
+  	laravelLocal: false,
   	laravelRemote: false,
+    nodeLocal: true,
+    nodeRemote: false,
+  },
+
+  node: {
+    local: {
+      url: 'http://192.168.0.187:3000/',
+      debug: true,
+    },
+    remote: {
+      url: 'http://192.168.0.187:3000/',
+      debug: false,
+    }
   },
   
   LARAVEL: {

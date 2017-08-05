@@ -6,22 +6,26 @@ export const font = {
 
 export const layout = {
 	h1: {
-		fontSize: 32,
+		fontSize: 31,
+		//color: '#141823'
 	},
 
 	h2: {
-		fontSize: 16,
-		fontFamily: 'Lato-Heavy'
+		fontSize: 15,
+		fontFamily: 'Lato-Heavy',
+		//color: '#141823'
 	},
 
 	h3: {
-		fontSize: 14,
-		fontFamily: 'Lato-Heavy'
+		fontSize: 13,
+		fontFamily: 'Lato-Heavy',
+		//color: '#141823'
 	},
 
 	h4: {
-		fontSize: 12,
-		fontFamily: 'Lato-Regular'			
+		fontSize: 11,
+		fontFamily: 'Lato-Regular',
+		//color: '#141823'
 	},
 
 	mainPadding: {
@@ -84,6 +88,7 @@ export default variables = {
 	//BRAND_COLOR: "#ef6856",
 	//BRAND_PRIMARY: '#0172ff',
 	BRAND_PRIMARY: '#64CCFC',
+	//BRAND_BLUE: '#64CCFC',
 	BRAND_RED: '#FE5F55',
 	//BRAND_COLOR: "#e0622e",
 	//BRAND_COLOR: "#fd3e0a",
@@ -102,8 +107,9 @@ export default variables = {
 	//BRAND_COLOR: "#5fcf80", //UNREAD
 	//BRAND_COLOR: "#60C967",
 	//BRAND_COLOR: "",
-	BRAND_SECONDARY: "#60C967",
+	BRAND_SECONDARY: "#5fcf80",
 	BRAND_GREEN: "#5fcf80",
+	//BRAND_GREEN: "#5fcf80",
 	//BRAND_SECONDARY: "#EA6B00",
 	//BRAND_SECONDARY: "#3f8abf",
 	//BRAND_SECONDARY: "#619B8A",
@@ -111,13 +117,23 @@ export default variables = {
 	
 
 	//BRAND_BLACK: '#495867',
-	BRAND_BLACK: '#242424',
+	//6D7275
+	//BRAND_BLACK: '#3e474f',
+	BRAND_BLACK: '#848484',
+	//BRAND_BLACK: '#7b8599',
+	//BRAND_BLACK: '#495867',
+	//BRAND_BLACK: '#3e474f',
+	//BRAND_BLACK: '#242424',
 	//BRAND_BLACK: '#3e474f',
 	
 	//BRAND_SUBCOLOR: '#F0CEA0',
 	BRAND_BLUE: '#9cbef5',
+	BRAND_ICON: '#9299A7',
+	//BRAND_PURPLE: '#A86FF7',
+	BRAND_PURPLE: '#6f36ff',
 	BRAND_SUBCOLOR: '#efefef',
-	BRAND_GRAY: '#b5b5b5',
+	BRAND_GRAY: '#9299A7',
+	//BRAND_GRAY: '#b5b5b5',
 	BRAND_WHITE: '#fff',
 	BRAND_SUBCOLOR1: '#b5b5b5',
 	FONT_REGULAR: 'Lato-Regular',

@@ -56,9 +56,16 @@ const CustomTabBar = React.createClass({
       zIndex: 1,
     }
 
-    const left = this.props.scrollValue.interpolate({
-      inputRange: [0, 1, ], outputRange: [0,  (containerWidth / numberOfTabs - 2), ],
-    })
+    const left = {
+      transform: [
+        {
+          translateX: this.props.scrollValue.interpolate({
+            inputRange: [0, 1,], 
+            outputRange: [0, containerWidth / numberOfTabs,],
+          })
+        }
+      ]
+    }
 
     return <View style={[styles.tabs, this.props.style]}>
       {
@@ -73,7 +80,7 @@ const CustomTabBar = React.createClass({
           )
         })
       }
-      <Animated.View style={[tabUnderlineStyle, { left, }, this.props.underlineStyle, ]} />
+      <Animated.View style={[tabUnderlineStyle, left, this.props.underlineStyle, ]} />
     </View>
   },
 });

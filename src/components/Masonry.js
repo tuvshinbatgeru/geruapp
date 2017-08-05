@@ -19,10 +19,11 @@ export default class Masonry extends Component {
 	  }
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
+	/*shouldComponentUpdate(nextProps, nextState) {
+		if(this.props.loading !== nextProps.loading) return true
 		if(this.props.items.length !== nextProps.items.length) return true
 		return false
-	}
+	}*/
 
 	componentDidMount() {
 		this.state.loading = false
@@ -134,7 +135,7 @@ export default class Masonry extends Component {
 		var { items } = this.props
 
  		for (var i = 0; i < items.length; i ++) {
-			columnsData[this.state.nextInsertColumn].length = columnsData[this.state.nextInsertColumn].length + (items[i].collage.ratio * itemWidth + this.props.offset)
+			columnsData[this.state.nextInsertColumn].length = columnsData[this.state.nextInsertColumn].length + (items[i].cover.ratio * itemWidth + this.props.offset)
 			columnsData[this.state.nextInsertColumn].items.push(items[i])
 			this._calcNextInsertColumn()
 		}
@@ -171,7 +172,8 @@ export default class Masonry extends Component {
 			        <View style={styles.wrapper}>
 			        	{ columns }
 			        </View>
-			        { this.defaultLoadingView() }
+			        
+			        {/* this.defaultLoadingView() */}
 			</ScrollView>
 		)
 	}

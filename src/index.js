@@ -17,6 +17,7 @@ import NewProject from './project/containers/NewProject'
 import NewProjectDetail from './project/containers/NewProjectDetail'
 import ProjectTagsChooser from './project/containers/ProjectTagsChooser'
 import WorkingProjectDashboard from './project/containers/WorkingProjectDashboard'
+import BookmarkedProjectsView from './project/containers/BookmarkedProjectsView'
 import ShowcaseView from './showcase/containers/ShowcaseView'
 import ShowcaseSearch from './showcase/containers/ShowcaseSearch'
 
@@ -37,6 +38,11 @@ export default class geru extends Component {
 
               <Scene key='TabbarView'
                      component={TabbarView}
+                     
+              />
+
+              <Scene key='BookmarkedProjectsView'
+                     component={BookmarkedProjectsView}
                      initial
               />
 

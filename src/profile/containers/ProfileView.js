@@ -33,10 +33,15 @@ class ProfileView extends Component {
     this.onFetchMyProjectsWorking = this.onFetchMyProjectsWorking.bind(this)
     this.onFetchMyProjectsBidded = this.onFetchMyProjectsBidded.bind(this)
     this.onStickyVisibility = this.onStickyVisibility.bind(this)
+    this.onBookmarkDetailPressed = this.onBookmarkDetailPressed.bind(this)
 
     this.state = {
         onStickyState: false,
     }
+  }
+
+  onBookmarkDetailPressed() {
+    Actions.BookmarkedProjectsView()
   }
 
   bidNavigation() {
@@ -103,24 +108,21 @@ class ProfileView extends Component {
     } = this.state
     
     return (
-      <StickyScrollView style={{ flex: 1, backgroundColor: '#F4F9FE'}}//backgroundColor: '#F4F9FE'}}
+      <StickyScrollView style={{ flex: 1, backgroundColor: '#fff'}}//backgroundColor: '#F4F9FE'}}
                         stickyHeight={250}
                         onStickyVisibility={this.onStickyVisibility}
                         showsVerticalScrollIndicator={false}
       >
 	      <ProfileHeader user={profile.get('user')}
+                       lastBookmarks={profile.get('lastBookmarks')}
                        onBidNavigation={ () => this.bidNavigation()}
                        onGPNavigation={ () => this.gpNavigation()}
                        onPortfolioNavigation={ () => this.portfolioNavigation()}
+                       onBookmarkDetailPressed={this.onBookmarkDetailPressed}
         />
-	      <MyProjectsComponent workingOnProjects={profile.get('workingOnProjects')}
-                             historyProjects={profile.get('historyProjects')}
-                             biddedProjects={profile.get('biddedProjects')}
-                             onStickyState={onStickyState}
-                             onFetchMyProjectsHistory={this.onFetchMyProjectsHistory}
-                             onFetchMyProjectsWorking={this.onFetchMyProjectsWorking}
-                             onFetchMyProjectsBidded={this.onFetchMyProjectsBidded}
-        />
+	      <View style={{ flex: 1, }}>
+          
+        </View>
       </StickyScrollView>
     )
   }

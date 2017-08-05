@@ -1,10 +1,30 @@
 import { 
 	FETCHING,
-	PROJECT_TYPE_CHANGED
+	PROJECT_TYPE_CHANGED,
+	GET_MY_BOOKMARK,
+	GET_MY_BOOKMARK_FULFILLED,
 } from './ProfileConstants'
 
 import CONFIG from "../env"
 import axios from "axios"
+
+const BackendFactory = require('../BackendFactory').default
+
+export function getMyBookmark() {
+	return dispatch => {
+		dispatch({ type: GET_MY_BOOKMARK })
+
+		BackendFactory().getMyBookmark({
+			user_id: "59857b51ad1e9b0c881d0c3e",
+		})
+		.then(res => {
+			dispatch({ type: GET_MY_BOOKMARK_FULFILLED, payload: res.data.bookmarks })
+		})
+		.catch(error => {
+			dispatch({ type: GET_TAGS_FAILED, payload: error })
+		})
+	}
+}
 
 export function projectTypeChanged (type) {
 	return dispatch => {
