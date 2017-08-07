@@ -72,7 +72,7 @@ const NewProjectComponent = React.createClass({
                       <NavBarIconText icon="ios-arrow-back-outline"
                               size={30}
                               color="#b5b5b5"
-                              text="буцах"
+                              text="back"
                               position="back"
                               onPress={this.props.onBackAction}
                       />
@@ -81,7 +81,7 @@ const NewProjectComponent = React.createClass({
                       <NavBarIconText icon="ios-arrow-forward-outline"
                               size={30}
                               color="#b5b5b5"
-                              text="дараах"
+                              text="next"
                               onPress={() => this.projectDetail()}
                       />
                 }

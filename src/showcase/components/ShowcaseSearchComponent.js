@@ -53,8 +53,10 @@ export default class ShowcaseSearchComponent extends Component {
 					<RecentSearch recentlySearch={recentlySearch}/>
 					:
 					<SuggestedTags searchTag={searchText}
-							   fetching={searchByTag.get('fetching')}
-							   tags={searchByTag.get('searchResult')}/>
+							   	   fetching={searchByTag.get('fetching')}
+							   	   tags={searchByTag.get('searchResult')}
+							   	   onTagPressed={this.props.onTagPressed}
+					/>
 				}
 			</View>
 		)

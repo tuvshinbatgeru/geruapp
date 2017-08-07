@@ -20,6 +20,22 @@ function mapDispatchToProps (dispatch) {
 }
 
 class ShowcaseSearch extends Component {
+	constructor(props) {
+	  super(props)
+	
+	  this.state = {}
+
+	  this.onTagPressed = this.onTagPressed.bind(this)
+	}
+
+	onTagPressed(searchText) {
+		Promise.resolve(this.props.actions.setTagAutocomplete(searchText))
+             .then((res) => {
+           	this.props.actions.getShowcaseSuggestedTags('hat')
+      	})
+		
+	}
+
 	backAction () {
 		Actions.pop()
 	}
@@ -38,7 +54,9 @@ class ShowcaseSearch extends Component {
 									 recentlySearch={this.props.recentlySearch}
 									 onBackAction={() => this.backAction()}
 									 onSearchValueCleared={this.onSearchValueCleared.bind(this)}
-									 onChangeSearchValue={this.onChangeSearchValue.bind(this)}/>
+									 onChangeSearchValue={this.onChangeSearchValue.bind(this)}
+									 onTagPressed={this.onTagPressed}
+			/>
 		)
 	}
 }

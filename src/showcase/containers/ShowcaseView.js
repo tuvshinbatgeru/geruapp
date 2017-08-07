@@ -20,9 +20,26 @@ function mapDispatchToProps (dispatch) {
 }
 
 class ShowcaseView extends Component {
+	constructor(props) {
+	  super(props);
+	
+	  this.onSuggestedTagPressed = this.onSuggestedTagPressed.bind(this)
+	}
+
+	componentWillMount() {
+	    this.props.actions.getShowcaseSuggestedTags('hat')
+	}
+
+	onSuggestedTagPressed(tag) {
+
+	}
 
 	getPortfolios(pageIndex) {
-		this.props.actions.getPortfolios(pageIndex)
+		let {
+			showcase
+		} = this.props
+
+		this.props.actions.getPortfolios(showcase.get('tags'), pageIndex)
 	}
 
 	toggleSearchScene() {
@@ -30,10 +47,18 @@ class ShowcaseView extends Component {
 	}
 
 	render() {
+		let {
+			showcase
+		} = this.props
+
 		return (
 			<ShowcaseListComponent portfolios={this.props.showcase.portfolios} 
+								   tags={showcase.get('tags')}
+								   suggestedTags={showcase.get('suggestedTags')}
 								   onGetPortfolios={this.getPortfolios.bind(this)}
-								   onToggleSearchScene={this.toggleSearchScene.bind(this)}/>	
+								   onToggleSearchScene={this.toggleSearchScene.bind(this)}
+								   onSuggestedTagPressed={this.onSuggestedTagPressed}
+			/>	
 		)
 	}
 }

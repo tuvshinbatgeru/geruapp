@@ -25,30 +25,17 @@ var InitialState = Record({
 		}		
 	]),
 
-	tags: List([{
-		displayText: 'цагаан сар',
-		label: 'цагаан сар'
-	}, {
-		displayText: 'цагаан сар дээл',
-		label: 'дээл'
-	}, {
-		displayText: 'цагаан сар ул боов',
-		label: 'ул боов'
-	}]),
+	tags: [],
+
+	suggestedTags: Record({
+		fetching: false,
+		tags: [],
+	})(),
 
 	searchByTag: Record({
 		fetching: false,
 		searchValue: '',
-		searchResult: List([{
-			displayText: 'teneg',
-			label: 'teneg'
-		}, {
-			displayText: 'teneg',
-			label: 'teneg'
-		}, {
-			displayText: 'teneg',
-			label: 'teneg'
-		}]), 
+		searchResult: [], 
 		//it should be result of tags /can be nested/
 	})()
 })

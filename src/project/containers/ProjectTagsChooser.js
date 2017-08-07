@@ -32,11 +32,11 @@ class ProjectTagsChooser extends Component {
       let arrayList = ''
       if(this.props.project.getIn(['tags', 'selected']).length > 0) {
         arrayList = this.props.project.getIn(['tags', 'selected']).map((item) => {
-          return String(item['id'])
+          return String(item['_id'])
         })
       } 
       
-      this.props.actions.getTags('', arrayList) 
+      this.props.actions.getTags('', arrayList, this.props.project.getIn(['tags', 'selected']).length > 0 ? 'a' : 'n') 
   }
 
   componentWillMount() {

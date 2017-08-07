@@ -4,7 +4,12 @@ import {
 	GET_PORTFOLIO_FULFILLED,
 	GET_PORTFOLIO_ERROR,
 	SHOWCASE_SEARCHVALUE_CHANGED,
-	SHOWCASE_SEARCHVALUE_CLEAR
+	SHOWCASE_SEARCHVALUE_CLEAR,
+	GET_TAG_AUTOCOMPLETE,
+	GET_TAG_AUTOCOMPLETE_FULFILLED,
+	SET_TAG_AUTOCOMPLETE,
+	GET_SHOWCASE_SUGGESTED_TAGS,
+	GET_SHOWCASE_SUGGESTED_TAGS_FULFILLED,
 } from './ShowcaseConstants'
 
 import InitialState from './ShowcaseInitial'
@@ -36,11 +41,33 @@ export default function showcase(state = initialState, action) {
 			return nextState
 		}
 
+		case SET_TAG_AUTOCOMPLETE: {
+			return state.set('tags', action.payload)
+		}
+
+		case GET_SHOWCASE_SUGGESTED_TAGS: {
+			return state.setIn(['suggestedTags', 'fetching'], true)
+		}
+
+		case GET_SHOWCASE_SUGGESTED_TAGS_FULFILLED: {
+			return state.setIn(['suggestedTags', 'fetching'], false)
+						.setIn(['suggestedTags', 'data'], action.payload)
+		}
+
 		case SHOWCASE_SEARCHVALUE_CHANGED: {
 
 			var tags = state.get('tags') 
 
 			return state.setIn(['searchByTag', 'searchValue'], action.payload)
+		}
+
+		case GET_TAG_AUTOCOMPLETE: {
+			return state.setIn(['searchByTag', 'fetching'], true)
+		}
+
+		case GET_TAG_AUTOCOMPLETE_FULFILLED: {
+			return state.setIn(['searchByTag', 'searchResult'], action.payload)
+						.setIn(['searchByTag', 'fetching'], false)
 		}
 
 		case SHOWCASE_SEARCHVALUE_CLEAR: {

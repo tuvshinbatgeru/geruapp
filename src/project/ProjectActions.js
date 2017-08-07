@@ -59,16 +59,17 @@ export function tagSelected(tag) {
 	}	
 }
 
-export function getTags(searchValue = '', tags = '') {
+export function getTags(searchValue = '', tags = '', type = 'a') {
 	return dispatch => {
 		dispatch({ type: GET_TAGS })
 
 		BackendFactory().getTags({
 			searchValue: searchValue,
 			tags: tags, 	
+			type,
 		})
 		.then(res => {
-			dispatch({ type: GET_TAGS_FULFILLED, payload: res.data.result })
+			dispatch({ type: GET_TAGS_FULFILLED, payload: res.data.tags })
 		})
 		.catch(error => {
 			dispatch({ type: GET_TAGS_FAILED, payload: error })

@@ -34,6 +34,7 @@ export default class geru extends Component {
 
               <Scene key='InitialLoginForm'
                      component={LoginView}
+                     
               />
 
               <Scene key='TabbarView'
@@ -48,6 +49,7 @@ export default class geru extends Component {
 
               <Scene key='ProjectTagsChooser'
                      component={ProjectTagsChooser}
+
               />
               <Scene key='NewProject'
                      component={NewProject}

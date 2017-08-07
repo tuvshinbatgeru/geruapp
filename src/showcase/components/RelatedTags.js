@@ -17,7 +17,52 @@ export default class RelatedTags extends Component {
 
 	render() {
 
-		var { related_tags, display } = this.props
+		var { 
+			suggestedTags, 
+			display 
+		} = this.props
+
+
+		var testData = [
+        {
+            "_id": "5987253a8edcdc6b78ba910c",
+            "name": "scarf",
+            "__v": 0,
+            "category": {
+                "_id": "5986c35364912624b089f1d6",
+                "name": "Clothes"
+            }
+        },
+        {
+            "_id": "598725368edcdc6b78ba910b",
+            "name": "shirt",
+            "__v": 0,
+            "category": {
+                "_id": "5986c35364912624b089f1d6",
+                "name": "Clothes"
+            }
+        },
+        {
+            "_id": "598725418edcdc6b78ba910d",
+            "name": "shoes",
+            "__v": 0,
+            "category": {
+                "_id": "5986c35364912624b089f1d6",
+                "name": "Clothes"
+            }
+        },
+        {
+            "_id": "598725928edcdc6b78ba911d",
+            "name": "tin",
+            "__v": 0,
+            "category": {
+                "_id": "5986c35364912624b089f1d6",
+                "name": "Clothes"
+            }
+        }
+    ]
+		//alert(JSON.stringify(suggestedTags.get('tags')))
+
 		return (
 			<View style={[display ? styles.showContainer : styles.hideContainer, styles.container]}>
 				<ScrollView automaticallyAdjustContentInsets={false}
@@ -25,11 +70,14 @@ export default class RelatedTags extends Component {
 			                backfaceVisibility={false}
 			                showsHorizontalScrollIndicator={false}>
 					{
-						related_tags.map((tag, i) => (
-							<TouchableOpacity style={[styles.tagContainer, { marginLeft: i == 0 ? 15 : 5 }]}>
+						//suggestedTags.get('tags').map((tag, i) => (
+						testData.map((tag, i) => (
+							<TouchableOpacity style={[styles.tagContainer, { marginLeft: i == 0 ? 15 : 5 }]}
+											  onPress={() => this.props.onSuggestedTagPressed(tag)}
+							>
 								<Image style={{ width: null, height: null, flex: 1, }}
 									   borderRadius={5}
-									   source={{ uri: tag.cover_url }}
+									   source={{ uri: "https://www.theknot.com/static/xo-fashion/wedding-dress-designer-cards/casablanca-bridal.jpg" }}
 								>
 									<LinearGradient style={{ borderRadius: 5, flex: 1, }}
 													colors={['rgba(255, 255, 255, 0.4)', 'rgba(52, 52, 52, 0.8)']}
@@ -49,36 +97,11 @@ export default class RelatedTags extends Component {
 }
 
 RelatedTags.propTypes = {
-	related_tags: PropTypes.array,
+	suggestedTags: PropTypes.object,
 	display: PropTypes.bool,
 }
 
 RelatedTags.defaultProps = {
-	related_tags: [{
-		name: 'Wedding',
-		cover_url: "https://www.herecomestheguide.com/images/venues_large/011880UnionHotel-20170201.jpg",
-	}, {
-		name: 'Flower',
-		cover_url: 'https://s-media-cache-ak0.pinimg.com/originals/e6/ae/d0/e6aed0df66d524c9b4e05c23971bd403.jpg',
-	}, {
-		name: 'Ring',
-		cover_url: 'http://www.thejewelleryhut.net/Static/images/WeddingRings.jpg',
-	}, {
-		name: 'White',
-		cover_url: 'http://www.artflyz.com/server16-cdn/2016/05/08/black-white-and-silver-wedding-white-and-silver-wedding-reception-ideas-400x300-19ce34c7061262b7.jpg'
-	}, {
-		name: 'Wedding',
-		cover_url: "https://www.herecomestheguide.com/images/venues_large/011880UnionHotel-20170201.jpg",
-	}, {
-		name: 'Flower',
-		cover_url: 'https://s-media-cache-ak0.pinimg.com/originals/e6/ae/d0/e6aed0df66d524c9b4e05c23971bd403.jpg',
-	}, {
-		name: 'Ring',
-		cover_url: 'http://www.thejewelleryhut.net/Static/images/WeddingRings.jpg',
-	}, {
-		name: 'White',
-		cover_url: 'http://www.artflyz.com/server16-cdn/2016/05/08/black-white-and-silver-wedding-white-and-silver-wedding-reception-ideas-400x300-19ce34c7061262b7.jpg'
-	}, ],
 	display: false,
 }
 

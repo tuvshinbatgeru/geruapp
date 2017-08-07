@@ -50,7 +50,7 @@ class ProjectTagsChooserComponent extends Component{
 		                <NavBarIconText icon="ios-arrow-back-outline"
 		                				size={30}
 		                				color="#b5b5b5"
-		                				text="цуцлах"
+		                				text="cancel"
 		                				position="back"
 		                				onPress={this.props.onBackAction}
 		                				/>
@@ -59,14 +59,14 @@ class ProjectTagsChooserComponent extends Component{
 		                <NavBarIconText icon="ios-arrow-forward-outline"
 		                				size={30}
 		                				color="#b5b5b5"
-		                				text="дараах"
+		                				text="next"
 		                				onPress={this.props.onNavigateNext}
 		                				/>
 		        	}
 		        />
 
 		        <View style={styles.questionContainer}>
-			      	<Text style={styles.question}>Та юу хийлгэхийг хүсэж байна вэ?</Text>
+			      	<Text style={styles.question}>Would you like us to make something for you?</Text>
 			    </View>
 
 		    	<TagsList tags={tags}

@@ -76,20 +76,20 @@ var InitialState = Record({
     imagesTabs: List([
       Record({
         key: 'take',
-        label: 'Take',
+        label: 'Browse photos',
       })(),
-      Record({
+      /*Record({
         key: 'suggested',
         label: 'Suggested',
         fetching: false,
         data: []
-      })(), 
-      Record({
+      })(), */
+      /*Record({
         key: 'bookmarked',
-        label: 'Bookmarked',
+        label: 'Bookmarked projects',
         fetching: false,
         data: []
-      })(),
+      })(),*/
     ]),
   })(),
 

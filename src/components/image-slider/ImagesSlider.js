@@ -4,7 +4,7 @@ import ImageCard from './ImageCard'
 import variables from '../../styles/variables'
 //import NavigationBar from 'react-native-navbar'
 //import NavBarIconText from './NavBarIconText'
-const constHeight = 150
+const constHeight = 100
 
 export default class ImagesSlider extends Component {
 	constructor(props) {
@@ -22,7 +22,9 @@ export default class ImagesSlider extends Component {
 	_renderBlank() {
 		return (
 			<View style={[styles.container, {justifyContent: 'center', alignItems: 'center', }]}>
-				<Text style={{fontSize: 16, fontFamily: variables.FONT_BOLD, textAlign: 'center'}}>Зураг оруулах нь төслийг нарийвчлан ойлгоход туслах тул та зураг оруулна уу</Text>	
+				<Text style={{fontSize: 24, fontFamily: variables.FONT_HEAVY, textAlign: 'center'}}>
+					Upload some photos will help your freelancer.
+				</Text>	
 			</View>
 		)
 	}
@@ -64,6 +66,7 @@ ImagesSlider.propTypes = {
 var styles = StyleSheet.create({
 	container: {
 		height: constHeight,
+		padding: 10, 
 	},
 
 	overlayNavbar: {

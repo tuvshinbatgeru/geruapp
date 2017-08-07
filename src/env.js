@@ -9,11 +9,13 @@ module.exports = {
 
   node: {
     local: {
-      url: 'http://192.168.0.187:3000/',
+      //saruul 187
+      //hongoroo 184
+      url: 'http://192.168.1.4:3000/',
       debug: true,
     },
     remote: {
-      url: 'http://192.168.0.187:3000/',
+      url: 'http://192.168.1.4:3000/',
       debug: false,
     }
   },

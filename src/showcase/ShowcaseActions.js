@@ -7,7 +7,13 @@ import {
 	SHOWCASE_SEARCHVALUE_CLEAR,
 	GET_TAG_AUTOCOMPLETE,
 	GET_TAG_AUTOCOMPLETE_FULFILLED,
+	SET_TAG_AUTOCOMPLETE,
+	//SET_TAG_AUTOCOMPLETE_FULFILLED,
+	GET_SHOWCASE_SUGGESTED_TAGS,
+	GET_SHOWCASE_SUGGESTED_TAGS_FULFILLED,
 } from './ShowcaseConstants'
+
+import _ from 'lodash'
 
 const BackendFactory = require('../BackendFactory').default
 
@@ -24,13 +30,68 @@ export function onShowCaseSearchValueCleared() {
 	}
 }
 
+export function getShowcaseSuggestedTags(tag) {
+	return dispatch => {
+
+		dispatch({ 
+			type: GET_SHOWCASE_SUGGESTED_TAGS, 
+		})
+
+		BackendFactory().getShowcaseSuggestedTags({
+			tag
+		}).then(res => {
+			//alert(res.data.tags.length)
+			dispatch({
+				type: GET_SHOWCASE_SUGGESTED_TAGS_FULFILLED,
+				payload: res.data.tags
+			})
+		}).catch(err => {
+			//console.log(err)
+		})	
+	}
+}
+
+export function setTagAutocomplete(searchText) {
+	var str = searchText.split(" ")
+	var tags = []
+	
+	_.forEach(str, (tag) => {
+		tags.push({
+			name: tag,
+		})
+	})
+
+	return {
+		type: SET_TAG_AUTOCOMPLETE,
+		payload: tags,
+	}
+}
+
 export function onShowCaseSearchValueChanged(text) {
 	return dispatch => {
 		dispatch({ type: SHOWCASE_SEARCHVALUE_CHANGED, payload: text })
 
-		BackendFactory().getTagAutocomplete({
+		var inputs = text.split(" ")
+
+		if(inputs.length > 0) {
+			BackendFactory().getTagAutoComplete({
+				tag: inputs.length > 1 ? inputs[inputs.length - 2] : '',
+				freetext: inputs[inputs.length - 1],
+			}).then(res => {
+				dispatch({
+					type: GET_TAG_AUTOCOMPLETE_FULFILLED,
+					payload: res.data.tags
+				})
+			}).catch(err => {
+				//console.log(err)
+			})	
+		}
+
+		
+
+		/*BackendFactory().getTagAutocomplete({
 			tag: "hat",
-			freetext: "m",	
+			freetext: "m",
 		})
 		.then(res => {
 			dispatch({ 
@@ -39,16 +100,39 @@ export function onShowCaseSearchValueChanged(text) {
 			})
 		})
 		.catch(error => {
+			dispatch({
+				type: GET_TAG_AUTOCOMPLETE_FULFILLED,
+				payload: error
+			})
 
-		})
+		})*/
 	}
 }
 
-export function getPortfolios(pageIndex) {
+export function getPortfolios(tags, pageIndex) {
 	return dispatch => {
 		dispatch({ type: GET_PORTFOLIO })
 
-		var temp = [{
+		//alert(tags.length + ' = ' + pageIndex)
+		BackendFactory().getShowcaseByTags({
+			page: pageIndex,
+			tags: [{
+				_id: "59859a1a9aeec01c54e4cc18"
+			}]
+		}).then(res => {
+			dispatch({
+		  		type: GET_PORTFOLIO_FULFILLED,
+		  		payload: {
+		  			data: res.data.showcases,
+		  			pageLast: res.data.page_last,
+		  			paginate: 8,
+		  		},
+		  	})
+		}).catch(err => {
+			console.log(err)
+		})	
+
+		/*var temp = [{
 		  		id: 1,
 		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
@@ -244,16 +328,7 @@ export function getPortfolios(pageIndex) {
 		  		}, {
 		  			name: 'гоёмсог'
 		  		}]
-		  	}]
-
-		  	dispatch({
-		  		type: GET_PORTFOLIO_FULFILLED,
-		  		payload: {
-		  			data: temp,
-		  			pageLast: 3,
-		  			paginate: 10,
-		  		},
-		  	})
+		  	}]*/
 
 	}
 }

@@ -45,11 +45,11 @@ export default class ShowcaseListComponent extends Component {
 				<View style={[layout.row, layout.centerCenter, { height: 30, }]}>
 					<View style={[{ width: 30, }]}>
 						<Image style={{ width: null, height: null, flex: 1, borderRadius: 30, }}
-							   source={{ uri: "https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p160x160/12733965_1022408714486124_4791379202953934223_n.jpg?oh=c5dee8ac5caada420d79f7413ed33701&oe=5A341C7F"}}
+							   source={{ uri: item.user.avatar_url }}
 						/>
 					</View>	
 					<View style={[{ flex: 1, paddingLeft: 10, }]}>
-						<Text style={[layout.h2, { fontFamily: font.regular, fontSize: 13, }]}>Tuvshinbat Gansukh</Text>
+						<Text style={[layout.h2, { fontFamily: font.regular, fontSize: 13, }]}>{item.user.first_name} {item.user.last_name}</Text>
 					</View>
 				</View>
 			</View>
@@ -86,15 +86,25 @@ export default class ShowcaseListComponent extends Component {
 	}
 
 	render() {
+		let {
+			suggestedTags,
+			tags
+		} = this.props
+		
 		let { hideNavbar } = this.state
 
 		return (
 			<View style={styles.container}>
 				<View style={{ padding: 10, }}>
-					<TaggableSearch onSearchFired={this.props.onToggleSearchScene}/>
+					<TaggableSearch tags={tags}
+									onSearchFired={this.props.onToggleSearchScene}
+					/>
 				</View>
 
-				<RelatedTags display={hideNavbar}/>
+				<RelatedTags display={hideNavbar}
+						     suggestedTags={suggestedTags}
+						     onSuggestedTagPressed={this.props.onSuggestedTagPressed}
+				/>
 
 		        <Masonry columnCount={2}
 		        		 offset={100}

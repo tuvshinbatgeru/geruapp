@@ -16,18 +16,6 @@ export default class TaggableSearch extends Component {
     return (
       <TouchableWithoutFeedback onPress={this.props.onSearchFired}>
         <View style={styles.searchContainer}>
-            { tags.length == 0 && (
-                <View style={styles.emptyContainer}>
-                  <Icon name="ios-search-outline" 
-                        color="#b5b5b5" 
-                        size={20}/>
-                  <Text style={styles.emptyText}>
-                      Browse showcase
-                  </Text>
-                </View>
-              )
-            }
-
             <View style={styles.emptyContainer}>
               <View style={[ layout.centerCenter, { width: 40, }]}>
                 <IconSet name="search"
@@ -35,6 +23,16 @@ export default class TaggableSearch extends Component {
                          color={variables.BRAND_BLACK}
                 />
               </View>
+              { 
+                tags.length == 0 && (
+                  <View style={styles.emptyContainer}>
+                    <Text style={styles.emptyText}>
+                        Browse showcase
+                    </Text>
+                  </View>
+                )
+              }
+
               <ScrollView horizontal={true}
                           showsHorizontalScrollIndicator={false}
                           automaticallyAdjustContentInsets={false}
@@ -45,7 +43,7 @@ export default class TaggableSearch extends Component {
                       <TouchableWithoutFeedback onPress={this.props.onSearchFired}>
                         <View style={[styles.tagItem, { justifyContent: 'space-between', alignItems: 'center', }]}>
                           <Text style={styles.tagLabel}>
-                             {item}
+                             {tag.name}
                           </Text>
                           <TouchableOpacity style={[{ width: 30, justifyContent: 'center', alignItems: 'flex-end', paddingRight: 5, }]}>
                             <View style={[layout.centerCenter, { width: 20, height: 20, borderRadius: 20, backgroundColor: '#fff'}]}>
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontFamily: font.regular,
     color: '#b5b5b5',
-    fontSize: 16,
+    fontSize: 17,
   },
 
   tagContainer: {
@@ -128,6 +126,6 @@ TaggableSearch.propTypes = {
 
 TaggableSearch.defaultProps = {
     //tags: [],
-    tags: ['Дээл', 'Цагаан сар', 'Хүннү','Дээл', 'Цагаан сар', 'Хүннү'],
+    //tags: ['Дээл', 'Цагаан сар', 'Хүннү','Дээл', 'Цагаан сар', 'Хүннү'],
     onSearchFired: null,
 }

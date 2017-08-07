@@ -15,6 +15,7 @@
 import CONFIG from './env'
 import _ from 'underscore'
 import axios from 'axios'
+import querystring from 'querystring'
 
 export class Node {
   
@@ -36,24 +37,37 @@ export class Node {
     
   }
 
-  getMyBookmark(data) {
-    return axios.get(this.API_BASE_URL + 'user/' + data.user_id + '/bookmark')
+  getShowcaseByTags(params) {
+    return axios.get(this.API_BASE_URL + 'showcase/tag?'+ 
+      querystring.stringify({
+        page: params.page,
+        tags: []  
+      }))
+  }
+
+  getShowcaseSuggestedTags(data) {
+    return axios.get(this.API_BASE_URL + 'tag/suggested', {
+      params: data
+    })
   }
 
   getTagAutoComplete(params) {
-    return axios.get(this.API_BASE_URL + 'tag/autocomplete', { 
+    return axios.get(this.API_BASE_URL + 'tag/auto_complete', { 
       params
     })
   }
 
+  getMyBookmark(data) {
+    return axios.get(this.API_BASE_URL + 'user/' + data.user_id + '/bookmark')
+  }
+
   //tags
   getTags(filter) {
-
-      let data = new FormData()
-      data.append('searchValue', filter.searchValue)
-      data.append('tags', String(filter.tags))
-
-      return axios.post(this.API_BASE_URL + 'api/tag/mobile', data)
+      return axios.get(this.API_BASE_URL + 'tag?' + querystring.stringify({
+        tags: filter.tags ? filter.tags : [],
+      }),  {
+        params: filter
+      })
   }
 
   saveProject(data) {
