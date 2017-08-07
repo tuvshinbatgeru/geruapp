@@ -35,21 +35,22 @@ var InitialState = Record({
 		displayText: 'цагаан сар ул боов',
 		label: 'ул боов'
 	}]),
-	searchByTag: Map({
+
+	searchByTag: Record({
 		fetching: false,
 		searchValue: '',
 		searchResult: List([{
-		displayText: 'цагаан сар',
-			label: 'цагаан сар'
+			displayText: 'teneg',
+			label: 'teneg'
 		}, {
-			displayText: 'цагаан сар дээл',
-			label: 'дээл'
+			displayText: 'teneg',
+			label: 'teneg'
 		}, {
-			displayText: 'цагаан сар ул боов',
-			label: 'ул боов'
+			displayText: 'teneg',
+			label: 'teneg'
 		}]), 
 		//it should be result of tags /can be nested/
-	})
+	})()
 })
 
 export default InitialState

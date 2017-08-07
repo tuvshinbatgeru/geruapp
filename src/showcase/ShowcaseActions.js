@@ -4,10 +4,12 @@ import {
 	GET_PORTFOLIO_FULFILLED,
 	GET_PORTFOLIO_ERROR,
 	SHOWCASE_SEARCHVALUE_CHANGED,
-	SHOWCASE_SEARCHVALUE_CLEAR
+	SHOWCASE_SEARCHVALUE_CLEAR,
+	GET_TAG_AUTOCOMPLETE,
+	GET_TAG_AUTOCOMPLETE_FULFILLED,
 } from './ShowcaseConstants'
 
-import CONFIG from "../env"
+const BackendFactory = require('../BackendFactory').default
 
 export function fetching(type) {
 	return {
@@ -23,9 +25,22 @@ export function onShowCaseSearchValueCleared() {
 }
 
 export function onShowCaseSearchValueChanged(text) {
-	return {
-		type: SHOWCASE_SEARCHVALUE_CHANGED,
-		payload: text,
+	return dispatch => {
+		dispatch({ type: SHOWCASE_SEARCHVALUE_CHANGED, payload: text })
+
+		BackendFactory().getTagAutocomplete({
+			tag: "hat",
+			freetext: "m",	
+		})
+		.then(res => {
+			dispatch({ 
+				type: GET_TAG_AUTOCOMPLETE_FULFILLED, 
+				payload: res.data.tags,
+			})
+		})
+		.catch(error => {
+
+		})
 	}
 }
 
@@ -35,8 +50,9 @@ export function getPortfolios(pageIndex) {
 
 		var temp = [{
 		  		id: 1,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/M-240.JPG',
 		  			ratio: 1.62
 		  		},
@@ -48,8 +64,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 2,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/c-41-copy.jpg',
 		  			ratio: 1.9
 		  		},
@@ -61,8 +78,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 3,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-225-copy.jpg',
 		  			ratio: 1.1
 		  		},
@@ -74,8 +92,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 4,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-224-copy.jpg',
 		  			ratio: 3.4
 		  		},
@@ -87,8 +106,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 5,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-226-copy.jpg',
 		  			ratio: 2.9
 		  		},
@@ -100,8 +120,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 6,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-227-copy.jpg',
 		  			ratio: 1.1
 		  		},
@@ -113,8 +134,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 7,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-235-copy.jpg',
 		  			ratio: 2.7
 		  		},
@@ -126,8 +148,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 8,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-236-copy.jpg',
 		  			ratio: 1.5
 		  		},
@@ -139,8 +162,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 9,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-237-copy.jpg',
 		  			ratio: 1.5
 		  		},
@@ -152,8 +176,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 10,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://ur-undrakh.com/files/images/20170106/EM/m-230-copy.jpg',
 		  			ratio: 1.5
 		  		},
@@ -165,8 +190,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 11,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-244-copy.jpg',
 		  			ratio: 1.5
 		  		},
@@ -178,8 +204,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 12,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/20170106/EM/m-247-copy.jpg',
 		  			ratio: 1.5
 		  		},
@@ -191,8 +218,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 13,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/201604/m-207.jpg',
 		  			ratio: 1.5
 		  		},
@@ -204,8 +232,9 @@ export function getPortfolios(pageIndex) {
 		  		}]
 		  	}, {
 		  		id: 14,
+		  		title: 'How to Create a Bangin Social',
 		  		caption: 'Дээл нь Монголчуудын олон зуун жилийн турш өмсөж ирсэн ...',
-		  		collage: {
+		  		cover: {
 		  			url: 'http://www.ur-undrakh.com/files/images/201604/m-209.jpg',
 		  			ratio: 1.5
 		  		},

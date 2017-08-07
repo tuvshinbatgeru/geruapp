@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux'
 import * as showcaseActions from '../ShowcaseActions'
 import ShowcaseSearchComponent from '../components/ShowcaseSearchComponent'
 
-
 function mapStateToProps (state) {
 	return {
 		searchByTag: state.showcase.searchByTag,

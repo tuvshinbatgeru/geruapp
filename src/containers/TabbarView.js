@@ -15,6 +15,10 @@ import TabNavigator from 'react-native-tab-navigator'
 import { navigatePop, tabChanged } from '../navigation/actions/navigationActions'
 import Badge from 'react-native-smart-badge'
 
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons'
+import brandLocationConfig from '../brand/selection.json'
+const IconSet = createIconSetFromIcoMoon(brandLocationConfig)
+
 //Views
 import MessageView from '../navigation/views/MessageView'
 import NotificationView from '../notification/containers/NotificationView'
@@ -22,7 +26,7 @@ import ProfileView from '../profile/containers/ProfileView'
 import DashboardView from '../navigation/views/DashboardView'
 import ShowcaseView from '../showcase/containers/ShowcaseView'
 
-import variables from '../styles/variables'
+import variables, { font, layout } from '../styles/variables'
 
 class TabbarView extends Component {
 
@@ -45,11 +49,11 @@ class TabbarView extends Component {
           </Badge>) : null
   }
 
-  renderTabViewItem (key, title, iconType, icon, notificationCount) {
+  renderTabViewItem (route) {
       const { currentTab } = this.props.navigation
       var content = {}
 
-      switch(key) {
+      switch(route.key) {
         case "showcase": 
           content = <ShowcaseView />
           break
@@ -70,25 +74,27 @@ class TabbarView extends Component {
       }
 
       return <TabNavigator.Item 
-                    key={key}
-                    selected={currentTab === key}
-                    renderBadge={() => this.notificationRenderBadge(notificationCount)}
+                    key={route.key}
+                    selected={currentTab === route.key}
+                    renderBadge={() => this.notificationRenderBadge(route.notificationCount)}
                     renderIcon={() => 
-                        <Icon containerStyle={{justifyContent: 'center', alignItems: 'center', marginTop: 12}} 
-                              color={'#9299A7'} 
-                              name={icon} 
-                              size={30} 
-                        />
+                        <View style={[layout.centerCenter, { height: 40, width: 40, }]}>
+                          <IconSet color={route.color} 
+                                   name={route.icon} 
+                                   size={route.iconSize}
+                          />
+                        </View>
                     }
             
                     renderSelectedIcon={() => 
-                        <Icon containerStyle={{justifyContent: 'flex-end', alignItems: 'center', marginTop: 12}}
-                              color={variables.BRAND_RED} 
-                              name={icon} 
-                              size={30} 
-                        />
+                        <View style={[layout.centerCenter, { height: 40, width: 40, }]}>
+                          <IconSet color={route.activeColor} 
+                                   name={route.icon} 
+                                   size={route.iconSize} 
+                          />
+                        </View>
                     }
-                    onPress={() => this.changeTab(key)}
+                    onPress={() => this.changeTab(route.key)}
               >
                   {content}
               </TabNavigator.Item>
@@ -98,7 +104,7 @@ class TabbarView extends Component {
       var tabItems = []
       _.forEach(this.props.navigation.routes, (route) => {
           tabItems.push(
-              this.renderTabViewItem(route.key, route.title, route.iconType, route.icon, route.notificationCount)
+              this.renderTabViewItem(route)
           )
       })
 
@@ -117,9 +123,29 @@ class TabbarView extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  tabView: {
+    flex: 1,
+    padding: 5,
+    backgroundColor: '#242424',
+    //backgroundColor: 'rgba(62,71,79,0.01)',
+  },
+
+  modal: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: 600,
+    width: 300,
+    backgroundColor: 'rgba(0,0,0,0.3)'
+  },
+
   badget: {
-    backgroundColor: variables.BRAND_RED, 
-    marginTop: 10, 
+    backgroundColor: '#f66f6f', 
+    marginTop: 8,
     borderColor: '#fff', 
     borderWidth: 2,
   }

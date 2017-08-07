@@ -38,12 +38,12 @@ export default class geru extends Component {
 
               <Scene key='TabbarView'
                      component={TabbarView}
-                     
+                     initial
               />
 
               <Scene key='BookmarkedProjectsView'
                      component={BookmarkedProjectsView}
-                     initial
+                     
               />
 
               <Scene key='ProjectTagsChooser'
@@ -58,6 +58,7 @@ export default class geru extends Component {
 
               <Scene key='ShowcaseView'
                      component={ShowcaseView}
+                     
               />
 
               <Scene key='ShowcaseSearch'

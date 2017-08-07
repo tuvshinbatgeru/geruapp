@@ -40,6 +40,12 @@ export class Node {
     return axios.get(this.API_BASE_URL + 'user/' + data.user_id + '/bookmark')
   }
 
+  getTagAutoComplete(params) {
+    return axios.get(this.API_BASE_URL + 'tag/autocomplete', { 
+      params
+    })
+  }
+
   //tags
   getTags(filter) {
 

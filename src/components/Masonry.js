@@ -19,11 +19,11 @@ export default class Masonry extends Component {
 	  }
 	}
 
-	/*shouldComponentUpdate(nextProps, nextState) {
+	shouldComponentUpdate(nextProps, nextState) {
 		if(this.props.loading !== nextProps.loading) return true
 		if(this.props.items.length !== nextProps.items.length) return true
 		return false
-	}*/
+	}
 
 	componentDidMount() {
 		this.state.loading = false

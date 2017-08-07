@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons'
+import brandLocationConfig from '../../brand/selection.json'
+const IconSet = createIconSetFromIcoMoon(brandLocationConfig)
 import variables, { layout, font } from '../../styles/variables'
 import MyBookmarkedProjects from './MyBookmarkedProjects'
- 
+
 export default class ProfileHeader extends Component {
 	render() {
 		let {
@@ -41,7 +44,7 @@ export default class ProfileHeader extends Component {
 			        		<View style={[layout.centerCenter, { padding: 3, }]}>
 			        			<Icon name="md-settings"
 			        				  size={24}
-			        				  color={variables.BRAND_RED}
+			        				  color={variables.BRAND_GREEN}
 			        			/>
 			        		</View>
 			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
@@ -64,9 +67,10 @@ export default class ProfileHeader extends Component {
 			        	
 			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', borderTopWidth: 1, borderTopColor: '#efefef'}]}>
 			        		<View style={[layout.centerCenter, { padding: 3, }]}>
-			        			<Icon name="md-settings"
-			        				  size={24}
-			        				  color={variables.BRAND_RED}
+			        			
+			        			<IconSet name="security"
+			        				     size={24}
+			        				     color={variables.BRAND_RED}
 			        			/>
 			        		</View>
 			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
@@ -76,9 +80,9 @@ export default class ProfileHeader extends Component {
 			        	</View>
 			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', }]}>
 			        		<View style={[layout.centerCenter, { padding: 3, }]}>
-			        			<Icon name="md-settings"
-			        				  size={24}
-			        				  color={variables.BRAND_RED}
+			        			<IconSet name="security"
+			        				     size={24}
+			        				     color={variables.BRAND_RED}
 			        			/>
 			        		</View>
 			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
@@ -98,9 +102,9 @@ export default class ProfileHeader extends Component {
 			        	
 			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', borderTopWidth: 1, borderTopColor: '#efefef'}]}>
 			        		<View style={[layout.centerCenter, { padding: 3, }]}>
-			        			<Icon name="md-settings"
-			        				  size={24}
-			        				  color={variables.BRAND_RED}
+			        			<IconSet name="facebook"
+			        				     size={24}
+			        				     color={"#3b5998"}
 			        			/>
 			        		</View>
 			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
@@ -116,9 +120,9 @@ export default class ProfileHeader extends Component {
 			        	</View>
 			        	<View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', }]}>
 			        		<View style={[layout.centerCenter, { padding: 3, }]}>
-			        			<Icon name="md-settings"
-			        				  size={24}
-			        				  color={variables.BRAND_RED}
+			        			<IconSet name="twitter"
+			        				     size={24}
+			        				     color={"#00aced"}
 			        			/>
 			        		</View>
 			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>
@@ -137,9 +141,9 @@ export default class ProfileHeader extends Component {
 			        <TouchableOpacity style={{ paddingHorizontal: 20, }}>
 				        <View style={[layout.row, { flex: 1, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#efefef', }]}>
 			        		<View style={[layout.centerCenter, { padding: 3, }]}>
-			        			<Icon name="md-settings"
-			        				  size={24}
-			        				  color={variables.BRAND_RED}
+			        			<IconSet name="logout"
+			        				     size={24}
+			        				     color={variables.BRAND_RED}
 			        			/>
 			        		</View>
 			        		<View style={[layout.row, layout.centerBetween, { flex: 1, paddingLeft: 10, }]}>

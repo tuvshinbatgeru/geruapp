@@ -15,6 +15,8 @@ import variables, { layout, font } from '../../styles/variables'
 import Masonry from '../../components/Masonry'
 import Icon from 'react-native-vector-icons/Ionicons'
 import LinearGradient from 'react-native-linear-gradient'
+import NavigationBar from 'react-native-navbar'
+import CustomGeruIcon from '../../components/CustomGeruIcon'
 
 class BookmarkedProjectComponent extends Component {
 
@@ -104,9 +106,25 @@ class BookmarkedProjectComponent extends Component {
   		allBookmarks
   	} = this.props
 
+  	let titleConfig = {
+  		title: 'Project Bookmark',
+  		style: {
+  			fontFamily: font.bold,
+	        color: variables.BRAND_GREY,
+  		}
+  	}
+
     return (
       <View style={{ flex: 1, }}>
-      	<View style={{ height: 60, backgroundColor: '#b5b5b5'}}></View>
+	    <NavigationBar title={titleConfig}
+		               leftButton={
+		                    <CustomGeruIcon icon="left_arrow"
+					                        size={16}
+					                        onPress={this.props.onBackPressed} 
+					                        color={variables.BRAND_GRAY}
+					        />
+		            }
+		/>
 
       	<View style={styles.container}>
 	        <TouchableOpacity> 

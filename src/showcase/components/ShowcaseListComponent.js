@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import variables from '../../styles/variables'
+import variables, { layout, font } from '../../styles/variables'
 
-import { SearchBar } from '../../components/react-native-taggable-search'
-
+//import { SearchBar } from '../../components/react-native-taggable-search'
+import TaggableSearch from '../../components/TaggableSearch'
 import NavigationBar from 'react-native-navbar'
 import NavBarIcon from '../../components/NavBarIcon'
 import NavBarSearch from '../../components/NavBarSearch'
@@ -32,15 +32,25 @@ export default class ShowcaseListComponent extends Component {
 	_onRowRender(item, itemWidth, offset) {
 		return (
 			<View style={styles.portfolioContainer}>
-				<View style={{ height: item.collage.ratio * itemWidth + offset }}>
-					<Image source={{uri: item.collage.url}}
-					       style={styles.porfilioItem}/>	
+				<View style={{ height: item.cover.ratio * itemWidth + offset }}>
+					<Image source={{ uri: item.cover.url }}
+					       style={styles.porfilioItem} />	
 				</View>
-				<View style={styles.cardInfo}>
-					<Text style={[styles.caption, { textAlign: 'center' }]}>{item.caption}</Text>
+				<View style={{ padding: 3 }}>
+					<Text style={{ fontFamily: font.bold, fontSize: 15, color: variables.BRAND_BLACK }}>{item.title}</Text>
 				</View>
-			<View style={{justifyContent: 'center', alignItems: 'center',}}>
-					<Text style={[styles.price, { color: '#f66f6f'}]}>{item.price}₮</Text>
+				<View style={{ paddingBottom: 5, paddingHorizontal: 3, }}>
+					<Text style={[styles.caption, { textAlign: 'justify', color: variables.BRAND_GRAY, }]}>{item.caption}</Text>
+				</View>
+				<View style={[layout.row, layout.centerCenter, { height: 30, }]}>
+					<View style={[{ width: 30, }]}>
+						<Image style={{ width: null, height: null, flex: 1, borderRadius: 30, }}
+							   source={{ uri: "https://scontent.fuln1-1.fna.fbcdn.net/v/t1.0-1/p160x160/12733965_1022408714486124_4791379202953934223_n.jpg?oh=c5dee8ac5caada420d79f7413ed33701&oe=5A341C7F"}}
+						/>
+					</View>	
+					<View style={[{ flex: 1, paddingLeft: 10, }]}>
+						<Text style={[layout.h2, { fontFamily: font.regular, fontSize: 13, }]}>Tuvshinbat Gansukh</Text>
+					</View>
 				</View>
 			</View>
 		)
@@ -80,12 +90,15 @@ export default class ShowcaseListComponent extends Component {
 
 		return (
 			<View style={styles.container}>
-				<SearchBar onToggleSearchScene={() => this.props.onToggleSearchScene()}/>
+				<View style={{ padding: 10, }}>
+					<TaggableSearch onSearchFired={this.props.onToggleSearchScene}/>
+				</View>
 
 				<RelatedTags display={hideNavbar}/>
 
 		        <Masonry columnCount={2}
-		        		 offset={50}
+		        		 offset={100}
+		        		 topOffset={100}
 		        		 loading={this.props.portfolios.fetching}
 		        		 items={this.props.portfolios.get('data')}
 		        		 onLoadMore={this._loadMore.bind(this)}
@@ -134,7 +147,7 @@ var styles = StyleSheet.create({
 	caption: {
 		flex: 2,
 		fontFamily: variables.FONT_REGULAR,
-		fontSize: 14,
+		fontSize: 13,
 		color: variables.BRAND_BLACK
 	},
 
