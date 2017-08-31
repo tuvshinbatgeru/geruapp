@@ -1,5 +1,13 @@
 import React, { PropTypes, Component } from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { 
+	StyleSheet, 
+	View, 
+	Text, 
+	Image, 
+	TouchableOpacity, 
+	Dimensions,
+	FlatList
+} from 'react-native'
 import variables, { layout, font } from '../../styles/variables'
 
 //import { SearchBar } from '../../components/react-native-taggable-search'
@@ -10,7 +18,12 @@ import NavBarSearch from '../../components/NavBarSearch'
 import RelatedTags from './RelatedTags'
 
 import Masonry from '../../components/Masonry'
+import MasonryList from '../../components/MasonryList'
 import Icon from 'react-native-vector-icons/Ionicons'
+
+const margin = 5
+const { height, width } = Dimensions.get('window')
+const itemWidth = (width - margin * 2) / 2
 
 export default class ShowcaseListComponent extends Component {
 
@@ -22,17 +35,38 @@ export default class ShowcaseListComponent extends Component {
 	  	lastScrollTop: 0,
 	  	navbarHeight: 70,
 	  	hideNavbar: false,
+	  	page: 1,
 	  }
+
+	  this._loadMore = this._loadMore.bind(this)
+	  this._onRowRender = this._onRowRender.bind(this)
+	  this._getHeightForItem = this._getHeightForItem.bind(this)
+	  this.showcaseNavigation = this.showcaseNavigation.bind(this)
+	  this.masonryScrolled = this.masonryScrolled.bind(this)
 	}
 
-	_loadMore(pageIndex = 1) {
-		this.props.onGetPortfolios(pageIndex)
+	componentWillMount() {
+	  this._loadMore()
 	}
 
-	_onRowRender(item, itemWidth, offset) {
+	_loadMore() {
+		let {
+			page
+		} = this.state
+
+		if(this.props.portfolios.fetching) return
+
+		this.setState({
+			page: page + 1,
+		}, () => this.props.onGetPortfolios(this.state.page))
+		
+	}
+
+	//_onRowRender(item, index, itemWidth, offset) {
+	_onRowRender({ item }) {
 		return (
-			<View style={styles.portfolioContainer}>
-				<View style={{ height: item.cover.ratio * itemWidth + offset }}>
+			<View style={styles.portfolioContainer} key={item._id}>
+				<View style={{ height: item.cover.ratio * itemWidth + 100 }}>
 					<Image source={{ uri: item.cover.url }}
 					       style={styles.porfilioItem} />	
 				</View>
@@ -54,6 +88,10 @@ export default class ShowcaseListComponent extends Component {
 				</View>
 			</View>
 		)
+	}
+
+	_getHeightForItem({ item, index }) {
+		return item.cover.ratio * Dimensions
 	}
 
 	showcaseNavigation(item) {
@@ -88,7 +126,8 @@ export default class ShowcaseListComponent extends Component {
 	render() {
 		let {
 			suggestedTags,
-			tags
+			tags,
+			portfolios
 		} = this.props
 		
 		let { hideNavbar } = this.state
@@ -106,15 +145,42 @@ export default class ShowcaseListComponent extends Component {
 						     onSuggestedTagPressed={this.props.onSuggestedTagPressed}
 				/>
 
-		        <Masonry columnCount={2}
+				<FlatList 
+					keyExtractor={item => item._id}
+					refreshing={portfolios.get('fetching')}
+					data={portfolios.get('data')}
+					numColumns={2}
+					//onRefresh={this._onRefresh}
+					onEndReached={this._loadMore}
+					onEndThreshhold={0.5}
+					renderItem={this._onRowRender}
+					onScroll={this.masonryScrolled}
+					//ListFooterComponent={this._renderFooter}					
+				/>
+
+				{/*<MasonryList
+					keyExtractor={item => item._id}
+					refreshing={portfolios.get('fetching')}
+					data={portfolios.get('data')}
+					numColumns={2}
+					renderItem={this._onRowRender}
+					getHeightForItem={this._getHeightForItem}
+					//ListFooterComponent={this._renderFooter}
+					//onRefresh={this._onRefresh}
+					onEndReached={this._loadMore}
+					onEndThreshhold={0.5}
+				/>*/}
+
+		        {/*<Masonry columnCount={2}
 		        		 offset={100}
 		        		 topOffset={100}
 		        		 loading={this.props.portfolios.fetching}
 		        		 items={this.props.portfolios.get('data')}
-		        		 onLoadMore={this._loadMore.bind(this)}
-		        		 rowRender={this._onRowRender.bind(this)}
-		        		 onClick={this.showcaseNavigation.bind(this)}
-		        		 onScroll={this.masonryScrolled.bind(this)}/>
+		        		 onLoadMore={this._loadMore}
+		        		 onLoadTreshhold={100}
+		        		 rowRender={this._onRowRender}
+		        		 onScroll={this.masonryScrolled}
+		        />*/}
 			</View>
 		)
 	}
@@ -138,7 +204,6 @@ var styles = StyleSheet.create({
 	portfolioContainer: {
 		flex: 1,
 		padding: 5,
-		flexDirection: 'column',
 		marginBottom: 25,
 	},
 

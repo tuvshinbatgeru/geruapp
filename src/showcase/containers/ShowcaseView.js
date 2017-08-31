@@ -24,6 +24,8 @@ class ShowcaseView extends Component {
 	  super(props);
 	
 	  this.onSuggestedTagPressed = this.onSuggestedTagPressed.bind(this)
+	  this.getPortfolios = this.getPortfolios.bind(this)
+	  this.toggleSearchScene = this.toggleSearchScene.bind(this)
 	}
 
 	componentWillMount() {
@@ -34,12 +36,12 @@ class ShowcaseView extends Component {
 
 	}
 
-	getPortfolios(pageIndex) {
+	getPortfolios(page) {
 		let {
 			showcase
 		} = this.props
 
-		this.props.actions.getPortfolios(showcase.get('tags'), pageIndex)
+		this.props.actions.getPortfolios(showcase.get('tags'), page)
 	}
 
 	toggleSearchScene() {
@@ -55,8 +57,8 @@ class ShowcaseView extends Component {
 			<ShowcaseListComponent portfolios={this.props.showcase.portfolios} 
 								   tags={showcase.get('tags')}
 								   suggestedTags={showcase.get('suggestedTags')}
-								   onGetPortfolios={this.getPortfolios.bind(this)}
-								   onToggleSearchScene={this.toggleSearchScene.bind(this)}
+								   onGetPortfolios={this.getPortfolios}
+								   onToggleSearchScene={this.toggleSearchScene}
 								   onSuggestedTagPressed={this.onSuggestedTagPressed}
 			/>	
 		)

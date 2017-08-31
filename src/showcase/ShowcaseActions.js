@@ -109,13 +109,13 @@ export function onShowCaseSearchValueChanged(text) {
 	}
 }
 
-export function getPortfolios(tags, pageIndex) {
+export function getPortfolios(tags, page) {
 	return dispatch => {
 		dispatch({ type: GET_PORTFOLIO })
 
 		//alert(tags.length + ' = ' + pageIndex)
 		BackendFactory().getShowcaseByTags({
-			page: pageIndex,
+			page,
 			tags: [{
 				_id: "59859a1a9aeec01c54e4cc18"
 			}]

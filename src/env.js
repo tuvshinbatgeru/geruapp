@@ -3,8 +3,8 @@ module.exports = {
   backend: {
   	laravelLocal: false,
   	laravelRemote: false,
-    nodeLocal: true,
-    nodeRemote: false,
+    nodeLocal: false,
+    nodeRemote: true,
   },
 
   node: {
@@ -15,7 +15,7 @@ module.exports = {
       debug: true,
     },
     remote: {
-      url: 'http://192.168.1.4:3000/',
+      url: 'http://18.220.78.252:3000/',
       debug: false,
     }
   },

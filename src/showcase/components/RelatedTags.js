@@ -112,7 +112,7 @@ var styles = StyleSheet.create({
 		paddingVertical: 15,
 		zIndex: 10,
 		height: 100,
-		backgroundColor: variables.BRAND_SUBCOLOR
+		backgroundColor: '#f2f2f2'
 	},
 
 	showContainer: {
@@ -120,7 +120,7 @@ var styles = StyleSheet.create({
 	},
 
 	hideContainer: {
-		top: 65,
+		top: 58,
 	},
 
 	tagContainer: {
