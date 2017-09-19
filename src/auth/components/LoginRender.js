@@ -47,13 +47,14 @@ import
   ScrollView,
   Text,
   TouchableHighlight,
-  View
+  View,
+  TouchableOpacity
 }
 from 'react-native'
 
 import Dimensions from 'Dimensions'
 var {height, width} = Dimensions.get('window') // Screen dimensions in current orientation
-
+import variables, { layout, font } from '../../styles/variables'
 /**
  * The states were interested in
  */
@@ -69,7 +70,10 @@ import {
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: 20,
+    //paddingHorizontal: 20, 
   },
   inputs: {
     marginTop: 10,
@@ -231,8 +235,6 @@ class LoginRender extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView horizontal={false} width={width} height={height}>
-          <View>
             <Header isFetching={this.props.auth.form.isFetching}
               showState={this.props.global.showState}
               currentState={this.props.global.currentState}
@@ -240,23 +242,35 @@ class LoginRender extends Component {
               onSetState={this.props.actions.setState} />
 
             <View style={styles.inputs}>
-              <LoginForm
+              <TouchableOpacity style={{ paddingHorizontal: 20, }} activeOpacity={0.8} onPress={this.props.onFacebookSignUp}>
+                <View style={[layout.centerCenter, { height: 44, backgroundColor: '#3b5998', borderRadius: 5, }]}>
+                  <Text style={[{ color: variables.BRAND_WHITE, fontSize: 13, fontFamily: font.regular, }]}>Sign up with Facebook</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ paddingHorizontal: 20, paddingVertical: 5, }} activeOpacity={0.8}>
+                <View style={[layout.centerCenter, { height: 44, backgroundColor: variables.BRAND_COLOR, borderRadius: 5, }]}>
+                  <Text style={[{ color: variables.BRAND_WHITE, fontSize: 13, fontFamily: font.regular, }]}>Sign up coming soon ...</Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{ paddingHorizontal: 20, paddingTop: 44, paddingBottom: 20, }} activeOpacity={0.8}>
+                <View style={[layout.centerCenter, { height: 44, backgroundColor: '#efefef', borderRadius: 5, }]}>
+                  <Text style={[{ color: variables.BRAND_BLACK, fontSize: 13, fontFamily: font.regular, }]}>Log in</Text>
+                </View>
+              </TouchableOpacity>
+              {/*<LoginForm
                 formType={formType}
                 form={this.props.auth.form}
                 value={this.state.value}
-                onChange={self.onChange.bind(self)} />
+                onChange={self.onChange.bind(self)} />*/}
               
             </View>
 
             <View >
-              <View style={styles.forgotContainer}>
-                {leftMessage}
-                {rightMessage}
-              </View>
+              <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center',}}>
+                <Text style={{ fontSize: 13, color: variables.BRAND_GRAY, }}>Forgot password?</Text>
+              </TouchableOpacity>
             </View>
-
-          </View>
-        </ScrollView>
       </View>
     )
   }

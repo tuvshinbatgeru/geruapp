@@ -31,7 +31,11 @@ export default function showcase(state = initialState, action) {
 
 			var bData = state.getIn(['portfolios', 'data'])
 
-			bData = bData.concat(data)
+			if(action.payload.pageIndex == 1) {
+				bData = []
+			}
+
+			bData = bData.concat(action.payload.data)
 
 			var nextState = state.setIn(['portfolios', 'fetching'], false)
 						.setIn(['portfolios', 'pageLast'], pageLast)
@@ -42,7 +46,11 @@ export default function showcase(state = initialState, action) {
 		}
 
 		case SET_TAG_AUTOCOMPLETE: {
-			return state.set('tags', action.payload)
+			let tags = state.get('tags')
+
+			tags = tags.concat(action.payload)
+
+			return state.set('tags', tags)
 		}
 
 		case GET_SHOWCASE_SUGGESTED_TAGS: {
@@ -51,7 +59,7 @@ export default function showcase(state = initialState, action) {
 
 		case GET_SHOWCASE_SUGGESTED_TAGS_FULFILLED: {
 			return state.setIn(['suggestedTags', 'fetching'], false)
-						.setIn(['suggestedTags', 'data'], action.payload)
+						.setIn(['suggestedTags', 'tags'], action.payload)
 		}
 
 		case SHOWCASE_SEARCHVALUE_CHANGED: {

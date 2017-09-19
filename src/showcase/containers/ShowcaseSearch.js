@@ -31,7 +31,9 @@ class ShowcaseSearch extends Component {
 	onTagPressed(searchText) {
 		Promise.resolve(this.props.actions.setTagAutocomplete(searchText))
              .then((res) => {
+            
            	this.props.actions.getShowcaseSuggestedTags('hat')
+           	Actions.pop()
       	})
 		
 	}

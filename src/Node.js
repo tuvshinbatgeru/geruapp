@@ -38,10 +38,16 @@ export class Node {
   }
 
   getShowcaseByTags(params) {
+   /* */
+    var tags = []
+    _.forEach(params.tags, function (tag) {
+        tags.push(tag.name)
+    })
+
     return axios.get(this.API_BASE_URL + 'showcase/tag?'+ 
       querystring.stringify({
         page: params.page,
-        tags: []  
+        tags 
       }))
   }
 

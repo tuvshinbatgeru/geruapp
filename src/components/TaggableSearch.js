@@ -39,7 +39,7 @@ export default class TaggableSearch extends Component {
                           backfaceVisibility={false}
                           style={styles.tagContainer}>
                 {
-                    tags.map((item) => (
+                    tags.map((tag) => (
                       <TouchableWithoutFeedback onPress={this.props.onSearchFired}>
                         <View style={[styles.tagItem, { justifyContent: 'space-between', alignItems: 'center', }]}>
                           <Text style={styles.tagLabel}>

@@ -50,6 +50,25 @@ export default class Masonry extends Component {
 	  	this.setState(_initialColumnsData(nextProps))
 	}
 
+	componentDidMount() {
+		this.state.loading = false
+	}
+
+	componentWillMount() {
+		this.state.loading = true
+		this._initialColumnsData()
+		this.loadMore()
+	}
+
+	_initialColumnsData() {
+		for ( var row = 0; row < this.props.columnCount; row ++) {
+			this.state.columnsData.push({
+				length: 0,
+				items: [],
+			})
+		}
+	}
+
 	_handeScroll(event) {		
 	    if(this.props.onScroll)
 	    	this.props.onScroll(event)
@@ -85,6 +104,29 @@ export default class Masonry extends Component {
 	    viewportLength = layoutMeasurement.height
 
 	    return contentLength + trailingInset - scrollOffset - viewportLength
+	}
+
+	defaultLoadingView() {
+		return (
+			<View style={styles.loaderContainer}>
+				<Text>Loading ...</Text>
+			</View>
+		)
+	}
+
+	loadMore() {
+		this.state.pageIndex ++
+		this.props.onLoadMore(this.state.pageIndex)
+	}
+
+	calcMasonryColumns() {
+		var { columnsData } = this.state
+		var { items } = this.props
+ 		for (var i = 0; i < items.length; i ++) {
+			columnsData[this.state.nextInsertColumn].length = columnsData[this.state.nextInsertColumn].length + (items[i].cover.ratio * itemWidth + this.props.offset)
+			columnsData[this.state.nextInsertColumn].items.push(items[i])
+			this._calcNextInsertColumn()
+		}
 	}
 
 	render() {

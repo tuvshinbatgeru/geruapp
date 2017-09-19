@@ -11,7 +11,8 @@ module.exports = {
     local: {
       //saruul 187
       //hongoroo 184
-      url: 'http://192.168.1.4:3000/',
+      url: 'http://18.220.78.252:3000/',
+      //url: 'http://192.168.1.8:3000/',
       debug: true,
     },
     remote: {

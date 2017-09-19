@@ -74,6 +74,7 @@ let LoginView = React.createClass({
         onButtonPress={onButtonPress}
         displayPasswordCheckbox
         leftMessageType={REGISTER}
+        onFacebookSignUp={this.onFacebookSignUp}
         rightMessageType={FORGOT_PASSWORD}
         auth={this.props.auth}
         global={this.props.global}

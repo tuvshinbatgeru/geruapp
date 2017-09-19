@@ -35,6 +35,11 @@ import
   View
 } from 'react-native'
 
+import variables, { layout, font } from '../styles/variables' 
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons'
+import brandLocationConfig from '../brand/selection.json'
+const IconSet = createIconSetFromIcoMoon(brandLocationConfig)
+
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -45,7 +50,8 @@ var styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    paddingVertical: 50, 
   },
   mark: {
     height: 100,
@@ -127,13 +133,25 @@ var Header = React.createClass({
     return (
       <View>
         <View style={styles.header}>
-
-          <TouchableHighlight onPress={this._onPressMark}>
-
-            <Image style={styles.mark}
-              source={require('../images/geru.png')}
+          <IconSet color="rgba(255,136,18, 0.40)"
+                     size={300}
+                     name="brand_ger"
+                     style={{ 
+                      transform: [{ 
+                        rotate: '45deg',
+                      }, {
+                        translateY: -130, 
+                      }, {
+                        translateX: 100, 
+                      }],
+                    }}
+          />
+          <View>
+            <IconSet color={variables.BRAND_COLOR}
+                     size={100}
+                     name="brand_ger"
             />
-          </TouchableHighlight>
+          </View>
           {this.props.isFetching
            ? <ActivityIndicator animating size='large' />
            : null

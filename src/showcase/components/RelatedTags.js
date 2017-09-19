@@ -23,7 +23,7 @@ export default class RelatedTags extends Component {
 		} = this.props
 
 
-		var testData = [
+		/*var testData = [
         {
             "_id": "5987253a8edcdc6b78ba910c",
             "name": "scarf",
@@ -60,9 +60,7 @@ export default class RelatedTags extends Component {
                 "name": "Clothes"
             }
         }
-    ]
-		//alert(JSON.stringify(suggestedTags.get('tags')))
-
+    ]*/
 		return (
 			<View style={[display ? styles.showContainer : styles.hideContainer, styles.container]}>
 				<ScrollView automaticallyAdjustContentInsets={false}
@@ -70,15 +68,15 @@ export default class RelatedTags extends Component {
 			                backfaceVisibility={false}
 			                showsHorizontalScrollIndicator={false}>
 					{
-						//suggestedTags.get('tags').map((tag, i) => (
-						testData.map((tag, i) => (
+						suggestedTags.get('tags').map((tag, i) => (
+						//testData.map((tag, i) => (
 							<TouchableOpacity style={[styles.tagContainer, { marginLeft: i == 0 ? 15 : 5 }]}
 											  key={tag._id}
 											  onPress={() => this.props.onSuggestedTagPressed(tag)}
 							>
 								<Image style={{ width: null, height: null, flex: 1, }}
 									   borderRadius={5}
-									   source={{ uri: "https://www.theknot.com/static/xo-fashion/wedding-dress-designer-cards/casablanca-bridal.jpg" }}
+									   source={{ uri: tag.cover_url }}
 								>
 									<LinearGradient style={{ borderRadius: 5, flex: 1, }}
 													colors={['rgba(255, 255, 255, 0.4)', 'rgba(52, 52, 52, 0.8)']}

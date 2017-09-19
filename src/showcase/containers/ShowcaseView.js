@@ -33,7 +33,15 @@ class ShowcaseView extends Component {
 	}
 
 	onSuggestedTagPressed(tag) {
-
+		Promise.resolve(this.props.actions.setTagAutocomplete(tag.name))
+             .then((res) => {
+            let {
+            	showcase
+			} = this.props
+			
+           	this.props.actions.getShowcaseSuggestedTags(tag.name)
+           	this.props.actions.getPortfolios(showcase.get('tags'), 1)
+      	})
 	}
 
 	getPortfolios(page) {

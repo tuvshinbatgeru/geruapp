@@ -37,10 +37,12 @@ export function getShowcaseSuggestedTags(tag) {
 			type: GET_SHOWCASE_SUGGESTED_TAGS, 
 		})
 
+		//alert(tag)
+
 		BackendFactory().getShowcaseSuggestedTags({
 			tag
 		}).then(res => {
-			//alert(res.data.tags.length)
+			//alert(JSON.stringify(res.data.tags))
 			dispatch({
 				type: GET_SHOWCASE_SUGGESTED_TAGS_FULFILLED,
 				payload: res.data.tags
@@ -52,18 +54,22 @@ export function getShowcaseSuggestedTags(tag) {
 }
 
 export function setTagAutocomplete(searchText) {
-	var str = searchText.split(" ")
-	var tags = []
-	
-	_.forEach(str, (tag) => {
-		tags.push({
-			name: tag,
-		})
-	})
+	return dispatch => {
+		var str = searchText.split(" ")
+		var tags = []
+		
+		_.forEach(str, (tag) => {
+			tags.push({
+				name: tag,
+			})
+		})	
 
-	return {
-		type: SET_TAG_AUTOCOMPLETE,
-		payload: tags,
+		//alert(JSON.stringify(tags))
+
+		dispatch({
+			type: SET_TAG_AUTOCOMPLETE,
+			payload: tags,
+		})
 	}
 }
 
@@ -113,17 +119,20 @@ export function getPortfolios(tags, page) {
 	return dispatch => {
 		dispatch({ type: GET_PORTFOLIO })
 
+		//alert(JSON.stringify(tags))
+
 		//alert(tags.length + ' = ' + pageIndex)
 		BackendFactory().getShowcaseByTags({
 			page,
-			tags: [{
-				_id: "59859a1a9aeec01c54e4cc18"
-			}]
+//			tags: ["hat"]
+			//tags
 		}).then(res => {
+			//alert(res.data.)
 			dispatch({
 		  		type: GET_PORTFOLIO_FULFILLED,
 		  		payload: {
 		  			data: res.data.showcases,
+		  			pageIndex: pageIndex,
 		  			pageLast: res.data.page_last,
 		  			paginate: 8,
 		  		},

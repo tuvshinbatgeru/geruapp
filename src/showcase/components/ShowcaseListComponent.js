@@ -90,7 +90,7 @@ export default class ShowcaseListComponent extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-	   //this.setState(_stateFromProps(nextProps))
+	   this.setState(_stateFromProps(nextProps))
 	}
 
 	_loadMore() {
@@ -184,18 +184,20 @@ export default class ShowcaseListComponent extends Component {
 		
 		let { hideNavbar } = this.state
 
+		//alert(portfolios.get('data').length)
+
 		return (
 			<View style={styles.container}>
 				<View style={{ padding: 15, }}>
-					{/*<TaggableSearch tags={tags}
+					<TaggableSearch tags={tags}
 									onSearchFired={this.props.onToggleSearchScene}
-					/>*/}
+					/>
 				</View>
 
-				{/*<RelatedTags display={hideNavbar}
+				<RelatedTags display={hideNavbar}
 						     suggestedTags={suggestedTags}
 						     onSuggestedTagPressed={this.props.onSuggestedTagPressed}
-				/>*/}
+				/>
 
 				<View style={{ flex: 1, paddingHorizontal: 8 }}>
 					{/*<Masonry
@@ -217,7 +219,7 @@ export default class ShowcaseListComponent extends Component {
 						keyExtractor={item => item._id}
 						refreshing={portfolios.get('fetching')}
 						data={portfolios.get('data')}
-						numColumns={1}
+						numColumns={2}
 						//onRefresh={this._onRefresh}
 						onEndReached={this._loadMore}
 						onEndThreshhold={0.5}
