@@ -73,6 +73,7 @@ export default class RelatedTags extends Component {
 						//suggestedTags.get('tags').map((tag, i) => (
 						testData.map((tag, i) => (
 							<TouchableOpacity style={[styles.tagContainer, { marginLeft: i == 0 ? 15 : 5 }]}
+											  key={tag._id}
 											  onPress={() => this.props.onSuggestedTagPressed(tag)}
 							>
 								<Image style={{ width: null, height: null, flex: 1, }}
@@ -112,7 +113,7 @@ var styles = StyleSheet.create({
 		paddingVertical: 15,
 		zIndex: 10,
 		height: 100,
-		backgroundColor: '#f2f2f2'
+		backgroundColor: '#fff'
 	},
 
 	showContainer: {
@@ -120,7 +121,7 @@ var styles = StyleSheet.create({
 	},
 
 	hideContainer: {
-		top: 58,
+		top: 59,
 	},
 
 	tagContainer: {
