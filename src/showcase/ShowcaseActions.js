@@ -120,12 +120,9 @@ export function getPortfolios(tags, page) {
 		dispatch({ type: GET_PORTFOLIO })
 
 		//alert(JSON.stringify(tags))
-
-		//alert(tags.length + ' = ' + pageIndex)
 		BackendFactory().getShowcaseByTags({
 			page,
-//			tags: ["hat"]
-			//tags
+			tags
 		}).then(res => {
 			//alert(res.data.showcases.length)
 			dispatch({

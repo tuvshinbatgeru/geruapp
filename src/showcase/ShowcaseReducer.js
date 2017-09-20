@@ -35,7 +35,9 @@ export default function showcase(state = initialState, action) {
 				bData = []
 			}
 
-			bData = bData.concat(action.payload.data)
+			//alert(bData.length + ' => ' + action.payload.data.length)
+			//bData = bData.concat(action.payload.data)
+			bData = action.payload.data
 
 			var nextState = state.setIn(['portfolios', 'fetching'], false)
 						.setIn(['portfolios', 'pageLast'], pageLast)

@@ -27,6 +27,7 @@ const containMatchingUris = (r1, r2) => isEqual(r1.map(brick => brick.uri), r2.m
 
 export default class Masonry extends Component {
   static propTypes = {
+    page: PropTypes.number,
     bricks: PropTypes.array,
     columns: PropTypes.number,
     sorted: PropTypes.bool,
@@ -37,6 +38,7 @@ export default class Masonry extends Component {
 
   static defaultProps = {
     bricks: [],
+    page: 1,
     columns: 2,
     sorted: false,
     imageContainerStyle: {},
@@ -69,7 +71,9 @@ export default class Masonry extends Component {
   }*/
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.bricks.length === nextProps.bricks.length) return
+    console.log(nextProps.bricks)
+    //console.log(this.props.bricks.length + ' ugly '+ nextProps.bricks.length)
+    //if(this.props.bricks.length === nextProps.bricks.length) return
     //console.log("updated")
     const sameData = containMatchingUris(this.props.bricks, nextProps.bricks);
     if (sameData) {
@@ -92,7 +96,7 @@ export default class Masonry extends Component {
     }
   }
 
-  resolveBricks({ bricks, columns }) {
+  resolveBricks({ bricks, columns, page }) {
     bricks
       .map((brick, index) => assignObjectColumn(columns, index, brick))
       .map((brick, index) => assignObjectIndex(index, brick))
@@ -101,7 +105,8 @@ export default class Masonry extends Component {
         (err) => console.warn('Image failed to load'),
         (resolvedBrick) => {
             this.setState(state => {
-              const sortedData = _insertIntoColumn(resolvedBrick, state._sortedData, this.props.sorted);
+              console.log(state._sortedData)
+              const sortedData = _insertIntoColumn(resolvedBrick, page == 1 ? [] : state._sortedData, this.props.sorted);
               return {
                 dataSource: state.dataSource.cloneWithRows(sortedData),
                 _sortedData: sortedData,

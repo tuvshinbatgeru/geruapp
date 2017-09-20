@@ -88,6 +88,7 @@ export default class ShowcaseListComponent extends Component {
 	  this._renderFooter = this._renderFooter.bind(this)
 	  this.showcaseNavigation = this.showcaseNavigation.bind(this)
 	  this.masonryScrolled = this.masonryScrolled.bind(this)
+	  this.onTagPressed = this.onTagPressed.bind(this)
 	}
 
 	componentWillMount() {
@@ -124,6 +125,12 @@ export default class ShowcaseListComponent extends Component {
 	componentWillReceiveProps(nextProps) {
 	   //alert('updated')
 	   this.setState(_stateFromProps(nextProps))
+	}
+
+	onTagPressed(tag) {
+		this.setState({
+			page: 1,
+		}, () => this.props.onSuggestedTagPressed(tag))
 	}
 
 	_loadMore() {
@@ -241,13 +248,14 @@ export default class ShowcaseListComponent extends Component {
 					</View>
 
 					<RelatedTags suggestedTags={suggestedTags}
-							     onSuggestedTagPressed={this.props.onSuggestedTagPressed}
+							     onSuggestedTagPressed={this.onTagPressed}
 					/>
 				</Animated.View>
 
 				<View style={{ flex: 1, paddingHorizontal: 8 }}>
 					<Masonry
 			            //sorted
+			            page={this.state.page}
 			            refreshing={portfolios.get('fetching')}
 			            topOffset={155}
 			            bricks={this.state.showcaseData}
