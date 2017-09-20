@@ -127,12 +127,12 @@ export function getPortfolios(tags, page) {
 //			tags: ["hat"]
 			//tags
 		}).then(res => {
-			//alert(res.data.)
+			//alert(res.data.showcases.length)
 			dispatch({
 		  		type: GET_PORTFOLIO_FULFILLED,
 		  		payload: {
 		  			data: res.data.showcases,
-		  			pageIndex: pageIndex,
+		  			pageIndex: page,
 		  			pageLast: res.data.page_last,
 		  			paginate: 8,
 		  		},

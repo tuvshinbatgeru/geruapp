@@ -61,7 +61,16 @@ export default class Masonry extends Component {
     this.resolveBricks(this.props);
   }
 
+  /*shouldComponentUpdate(nextProps, nextState) {
+    //console.log(this.props.bricks.length + ' === '+ nextProps.bricks.length)
+    if(this.props.bricks.length != nextProps.bricks.length)
+      return true
+    return false
+  }*/
+
   componentWillReceiveProps(nextProps) {
+    if(this.props.bricks.length === nextProps.bricks.length) return
+    //console.log("updated")
     const sameData = containMatchingUris(this.props.bricks, nextProps.bricks);
     if (sameData) {
       const differentColumns = this.props.columns !== nextProps.columns;

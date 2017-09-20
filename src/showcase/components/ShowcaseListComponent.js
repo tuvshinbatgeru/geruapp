@@ -7,18 +7,20 @@ import {
 	Image, 
 	TouchableOpacity, 
 	Dimensions,
-	FlatList
+	FlatList,
+	Animated,
+	Easing
 } from 'react-native'
 import variables, { layout, font } from '../../styles/variables'
-
+//import Perf from 'react-addons-perf'
 //import { SearchBar } from '../../components/react-native-taggable-search'
 import TaggableSearch from '../../components/TaggableSearch'
 import NavigationBar from 'react-native-navbar'
 import NavBarIcon from '../../components/NavBarIcon'
 import NavBarSearch from '../../components/NavBarSearch'
 import RelatedTags from './RelatedTags'
-
 import Masonry from '../../components/react-native-masonry/Masonry'
+import FastImage from 'react-native-fast-image'
 //import Masonry from '../../components/Masonry'
 //import MasonryList from '../../components/MasonryList'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -77,6 +79,9 @@ export default class ShowcaseListComponent extends Component {
 	  	page: 1,
 	  }
 
+	  this.animation = new Animated.Value(0)
+
+	  this.doAnimate = this.doAnimate.bind(this)
 	  this._loadMore = this._loadMore.bind(this)
 	  this._onRowRender = this._onRowRender.bind(this)
 	  this._getHeightForItem = this._getHeightForItem.bind(this)
@@ -89,7 +94,35 @@ export default class ShowcaseListComponent extends Component {
 	  this._loadMore()
 	}
 
+	componentDidMount() {
+		/*console.log('start perf tracking');
+        Perf.start();
+        setTimeout(() => {
+            console.log('stop perf tracking');
+            Perf.stop();
+            Perf.printExclusive();
+        }, 10000);*/
+	}
+
+	doAnimate() {
+		this.animation.setValue(!this.state.hideNavbar ? -155 : 0)
+		Animated.timing(
+			this.animation,
+			{
+				toValue: this.state.hideNavbar ? -155 : 0,
+				duration: 200,
+				easing: Easing.linear,
+			}
+		).start()
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(prevState.hideNavbar != this.state.hideNavbar)
+			this.doAnimate()
+	}
+
 	componentWillReceiveProps(nextProps) {
+	   //alert('updated')
 	   this.setState(_stateFromProps(nextProps))
 	}
 
@@ -119,8 +152,8 @@ export default class ShowcaseListComponent extends Component {
 			<View style={styles.portfolioContainer} key={item._id}>
 			{/*<View style={{ height: item.cover.ratio * itemWidth + 100 }} key={item._id}>*/}
 				<View style={{ height: item.cover.ratio * itemWidth + 100 }}>
-					<Image source={{ uri: item.cover.url }}
-					       style={styles.porfilioItem} />	
+					<FastImage source={{ uri: item.cover.url }}
+					       style={styles.porfilioItem} />
 				</View>
 				<View style={{ padding: 3 }}>
 					<Text style={{ fontFamily: font.bold, fontSize: 15, color: variables.BRAND_BLACK }}>{item.title}</Text>
@@ -130,7 +163,7 @@ export default class ShowcaseListComponent extends Component {
 				</View>
 				<View style={[layout.row, layout.centerCenter, { height: 30, }]}>
 					<View style={[{ width: 30, }]}>
-						<Image style={{ width: null, height: null, flex: 1, borderRadius: 30, }}
+						<FastImage style={{ width: null, height: null, flex: 1, borderRadius: 30, }}
 							   source={{ uri: item.user.avatar_url }}
 						/>
 					</View>	
@@ -158,21 +191,23 @@ export default class ShowcaseListComponent extends Component {
 	    if (Math.abs(lastScrollTop - scrollOffset) <= delta)
   		return
 
+  		let tempHideNavbar = false
+
   		if (scrollOffset > lastScrollTop && scrollOffset > navbarHeight){
         	// Scroll Down
-	        hideNavbar = true
+	        tempHideNavbar = true
 	    } else {
 	        // Scroll Up
-	        hideNavbar = false
+	        tempHideNavbar = false
 	    }
 	    
-	    lastScrollTop = scrollOffset
+	    this.state.lastScrollTop = scrollOffset
 
-	    this.setState({
-	    	lastScrollTop,
-	    	hideNavbar
-	    })
-
+	    if(tempHideNavbar != hideNavbar) {
+		    this.setState({
+		    	hideNavbar: tempHideNavbar
+		    })
+		}
 	}
 
 	render() {
@@ -185,25 +220,36 @@ export default class ShowcaseListComponent extends Component {
 		let { hideNavbar } = this.state
 
 		//alert(portfolios.get('data').length)
-
 		return (
 			<View style={styles.container}>
-				<View style={{ padding: 15, }}>
-					<TaggableSearch tags={tags}
-									onSearchFired={this.props.onToggleSearchScene}
-					/>
-				</View>
+				<Animated.View style={{
+					transform: [{
+						translateY: this.animation
+					}],
+					position: 'absolute',
+					top: 0,
+					left: 0,
+					right: 0,
+					height: 155,
+					zIndex: 4,
+					backgroundColor: '#fff',
+				}}>
+					<View style={{ paddingHorizontal: 15, paddingTop: 15, }}>
+						<TaggableSearch tags={tags}
+										onSearchFired={this.props.onToggleSearchScene}
+						/>
+					</View>
 
-				<RelatedTags display={hideNavbar}
-						     suggestedTags={suggestedTags}
-						     onSuggestedTagPressed={this.props.onSuggestedTagPressed}
-				/>
+					<RelatedTags suggestedTags={suggestedTags}
+							     onSuggestedTagPressed={this.props.onSuggestedTagPressed}
+					/>
+				</Animated.View>
 
 				<View style={{ flex: 1, paddingHorizontal: 8 }}>
-					{/*<Masonry
+					<Masonry
 			            //sorted
 			            refreshing={portfolios.get('fetching')}
-			            topOffset={90}
+			            topOffset={155}
 			            bricks={this.state.showcaseData}
 			            imageContainerStyle={{
 			            	borderRadius: 5, 
@@ -213,10 +259,11 @@ export default class ShowcaseListComponent extends Component {
 			            columns={2}
 			            onScroll={this.masonryScrolled}
 			            customImageComponent={Image}
+			            showsVerticalScrollIndicator={true}
 			            //renderFooter={this._renderFooter}
-			        />*/}
-			        <FlatList 
-						keyExtractor={item => item._id}
+			        />
+			        {/*<FlatList 
+						keyExtractor={(item, i) => i}
 						refreshing={portfolios.get('fetching')}
 						data={portfolios.get('data')}
 						numColumns={2}
@@ -224,9 +271,9 @@ export default class ShowcaseListComponent extends Component {
 						onEndReached={this._loadMore}
 						onEndThreshhold={0.5}
 						renderItem={this._onRowRender}
-						//onScroll={this.masonryScrolled}
+						onScroll={this.masonryScrolled}
 						//ListFooterComponent={this._renderFooter}					
-					/>
+					/>*/}
 		        </View>
 			</View>
 		)

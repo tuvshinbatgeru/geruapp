@@ -11,58 +11,14 @@ import variables, { font, layout, } from '../../styles/variables'
 import LinearGradient from 'react-native-linear-gradient'
 
 export default class RelatedTags extends Component {
-	constructor(props) {
-	  super(props)	
-	}
-
 	render() {
 
 		var { 
 			suggestedTags, 
-			display 
 		} = this.props
 
-
-		/*var testData = [
-        {
-            "_id": "5987253a8edcdc6b78ba910c",
-            "name": "scarf",
-            "__v": 0,
-            "category": {
-                "_id": "5986c35364912624b089f1d6",
-                "name": "Clothes"
-            }
-        },
-        {
-            "_id": "598725368edcdc6b78ba910b",
-            "name": "shirt",
-            "__v": 0,
-            "category": {
-                "_id": "5986c35364912624b089f1d6",
-                "name": "Clothes"
-            }
-        },
-        {
-            "_id": "598725418edcdc6b78ba910d",
-            "name": "shoes",
-            "__v": 0,
-            "category": {
-                "_id": "5986c35364912624b089f1d6",
-                "name": "Clothes"
-            }
-        },
-        {
-            "_id": "598725928edcdc6b78ba911d",
-            "name": "tin",
-            "__v": 0,
-            "category": {
-                "_id": "5986c35364912624b089f1d6",
-                "name": "Clothes"
-            }
-        }
-    ]*/
 		return (
-			<View style={[display ? styles.showContainer : styles.hideContainer, styles.container]}>
+			<View style={[styles.container]}>
 				<ScrollView automaticallyAdjustContentInsets={false}
 			                horizontal={true}
 			                backfaceVisibility={false}
@@ -107,19 +63,10 @@ RelatedTags.defaultProps = {
 var styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
-		position: 'absolute',
+		//position: 'absolute',
 		paddingVertical: 15,
-		zIndex: 10,
 		height: 100,
 		backgroundColor: '#fff'
-	},
-
-	showContainer: {
-		top: -100,
-	},
-
-	hideContainer: {
-		top: 59,
 	},
 
 	tagContainer: {

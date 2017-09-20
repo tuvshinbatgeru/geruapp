@@ -45,11 +45,12 @@ class ShowcaseView extends Component {
 	}
 
 	getPortfolios(page) {
-		let {
+		/*let {
 			showcase
-		} = this.props
+		} = this.props*/
 
-		this.props.actions.getPortfolios(showcase.get('tags'), page)
+		this.props.actions.getPortfolios([], page)
+		//this.props.actions.getPortfolios(showcase.get('tags'), page)
 	}
 
 	toggleSearchScene() {
