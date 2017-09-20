@@ -224,8 +224,6 @@ export default class ShowcaseListComponent extends Component {
 			portfolios
 		} = this.props
 		
-		let { hideNavbar } = this.state
-
 		//alert(portfolios.get('data').length)
 		return (
 			<View style={styles.container}>

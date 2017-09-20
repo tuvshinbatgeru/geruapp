@@ -53,7 +53,8 @@ export default class Masonry extends Component {
       dimensions: {},
       initialOrientation: true,
       _sortedData: [],
-      _resolvedData: []
+      _resolvedData: [],
+      sameData: false,
     };
     // Assuming that rotation is binary (vertical|landscape)
     Dimensions.addEventListener('change', (window) => this.setState(state => ({ initialOrientation: !state.initialOrientation })))
@@ -70,11 +71,20 @@ export default class Masonry extends Component {
     return false
   }*/
 
+  shouldComponentUpdate(nextProps, nextState) {
+     if(this.props.hideNavbar != nextProps.hideNavbar) return false
+     if(!nextState.sameData) return true
+     //if(nextProps.)
+     return false
+  }
+  
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.bricks)
+    //console.log(nextProps.bricks)
     //console.log(this.props.bricks.length + ' ugly '+ nextProps.bricks.length)
     //if(this.props.bricks.length === nextProps.bricks.length) return
     //console.log("updated")
+    if(this.props.hideNavbar != nextProps.hideNavbar) return
+
     const sameData = containMatchingUris(this.props.bricks, nextProps.bricks);
     if (sameData) {
       const differentColumns = this.props.columns !== nextProps.columns;
@@ -88,8 +98,13 @@ export default class Masonry extends Component {
           .reduce((sortDataAcc, resolvedBrick) => _insertIntoColumn(resolvedBrick, sortDataAcc, this.props.sorted), []);
 
       	this.setState({
-      	  dataSource: this.state.dataSource.cloneWithRows(resortedData)
+      	  dataSource: this.state.dataSource.cloneWithRows(resortedData),
+          sameData: false,
       	});
+      } else {
+        this.setState({
+          sameData: true
+        })
       }
     } else {
       this.resolveBricks(nextProps);
@@ -105,12 +120,12 @@ export default class Masonry extends Component {
         (err) => console.warn('Image failed to load'),
         (resolvedBrick) => {
             this.setState(state => {
-              console.log(state._sortedData)
               const sortedData = _insertIntoColumn(resolvedBrick, page == 1 ? [] : state._sortedData, this.props.sorted);
               return {
                 dataSource: state.dataSource.cloneWithRows(sortedData),
                 _sortedData: sortedData,
-                _resolvedData: [...state._resolvedData, resolvedBrick]
+                _resolvedData: [...state._resolvedData, resolvedBrick],
+                sameData: false
               }
             });;
         }));
@@ -128,13 +143,13 @@ export default class Masonry extends Component {
   }
 
   render() {
+    //alert('render')
     return (
   	<View style={{flex: 1}} onLayout={(event) => this._setParentDimensions(event)}>
  	    <ListView
          contentContainerStyle={styles.masonry__container}
          dataSource={this.state.dataSource}
          showsVerticalScrollIndicator={false}
-         onScroll={this.props.onScroll}
          style={{ paddingVertical: this.props.topOffset, }}
          {...this.props}
          enableEmptySections
