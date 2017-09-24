@@ -6,6 +6,8 @@ import { Actions } from 'react-native-router-flux'
 
 import { connect } from 'react-redux'
 import { 
+  Animated,
+  Easing,
   View,
   Text, 
   StyleSheet,
@@ -29,6 +31,59 @@ import ShowcaseView from '../showcase/containers/ShowcaseView'
 import variables, { font, layout } from '../styles/variables'
 
 class TabbarView extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      tabBarVisible: true,
+      ...this.calculateTabItem(props, true),
+    }
+
+    this.animatedValue = new Animated.Value(0)
+
+    this.calculateTabItem = this.calculateTabItem.bind(this)      
+    this.toggleTabBarVisible = this.toggleTabBarVisible.bind(this)      
+    this.renderTabViewItem = this.renderTabViewItem.bind(this)      
+    this.doAnimate = this.doAnimate.bind(this)
+  }
+
+  doAnimate() {
+    this.animatedValue.setValue(!this.state.tabBarVisible ? 60 : 0)
+    Animated.timing(
+      this.animatedValue,
+      {
+        toValue: this.state.tabBarVisible ? 0 : 60,
+        duration: 200,
+        easing: Easing.linear,
+      }
+    ).start()
+  }
+
+  toggleTabBarVisible(state) {
+    //alert(state)
+    this.setState({
+      tabBarVisible: !state
+    })
+  }
+
+  calculateTabItem({ navigation }, tabBarVisible) {
+      let tabItems = []
+
+      for(let i = 0; i < navigation.routes.length; i ++) {
+          tabItems.push(this.renderTabViewItem(navigation.routes[i], tabBarVisible))
+      }
+
+      return { tabItems }
+  }
+
+  componentWillReceiveProps(nextProps) {
+     this.setState(this.calculateTabItem(nextProps), this.state.tabBarVisible) 
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.tabBarVisible != this.state.tabBarVisible)
+      this.doAnimate()
+  }
 
   changeTab (currentTab) {
     if(currentTab == "newproject") {
@@ -49,13 +104,18 @@ class TabbarView extends Component {
           </Badge>) : null
   }
 
-  renderTabViewItem (route) {
+  renderTabViewItem (route, tabBarVisible) {
       const { currentTab } = this.props.navigation
+      //let { tabBarVisible } = this.state
       var content = {}
+      //alert(tabBarVisible)
+      //
 
       switch(route.key) {
         case "showcase": 
-          content = <ShowcaseView />
+          content = <ShowcaseView tabBarVisible={tabBarVisible} onToggleTabBar={(visibleState) => null}/>
+          //content = <ShowcaseView tabBarVisible={tabBarVisible} onToggleTabBar={(visibleState) => }/>
+          //content = <ShowcaseView tabBarVisible={tabBarVisible}/>
           break
         case "message":
           content = <MessageView />
@@ -101,20 +161,16 @@ class TabbarView extends Component {
   }
 
   render() {
-      var tabItems = []
-      _.forEach(this.props.navigation.routes, (route) => {
-          tabItems.push(
-              this.renderTabViewItem(route)
-          )
-      })
-
-      let tabHeight = 60
+      let {
+        tabBarVisible,
+        tabItems
+      } = this.state
 
       return (
-          <View style={{flex: 1, }}>
-            <TabNavigator tabBarStyle={{backgroundColor: '#fff', height: tabHeight, }}
-                          tabBarShadowStyle={{backgroundColor: variables.BRAND_SUBCOLOR, height: 0}}
-                          sceneStyle={{ paddingBottom: tabHeight }}>
+          <View style={{ flex: 1, }}>
+            <TabNavigator tabBarStyle={{backgroundColor: '#fff', height: tabBarVisible ? 60 : 0, }}
+                                   tabBarShadowStyle={{backgroundColor: variables.BRAND_SUBCOLOR, height: 0}}
+                                   sceneStyle={{ paddingBottom: tabBarVisible ? 60 : 0, }}>
                 {tabItems}
             </TabNavigator>
           </View>

@@ -72,63 +72,60 @@ export default class Masonry extends Component {
   }*/
 
   shouldComponentUpdate(nextProps, nextState) {
-     if(this.props.hideNavbar != nextProps.hideNavbar) return false
-     if(!nextState.sameData) return true
-     //if(nextProps.)
-     return false
+      if(this.props.hideNavbar != nextProps.hideNavbar) return false
+      //console.log(this.props.refreshing + ' !! ' + nextProps.refreshing)
+      //if(this.props.refreshing == nextProps.refreshing) return false
+      //console.log('same = ' + this.state.sameData)
+      //if(!nextState.sameData) return true
+      return true
   }
   
   componentWillReceiveProps(nextProps) {
+    //console.log('Props changed')
     //console.log(nextProps.bricks)
     //console.log(this.props.bricks.length + ' ugly '+ nextProps.bricks.length)
     //if(this.props.bricks.length === nextProps.bricks.length) return
     //console.log("updated")
     if(this.props.hideNavbar != nextProps.hideNavbar) return
-
-    const sameData = containMatchingUris(this.props.bricks, nextProps.bricks);
-    if (sameData) {
-      const differentColumns = this.props.columns !== nextProps.columns;
-
-      if (differentColumns) {
-        const newColumnCount = nextProps.columns;
-        // Re-sort existing data instead of attempting to re-resolved
-        const resortedData = this.state._resolvedData
-          .map((brick, index) => assignObjectColumn(newColumnCount, index, brick))
-          .map((brick, index) => assignObjectIndex(index, brick))
-          .reduce((sortDataAcc, resolvedBrick) => _insertIntoColumn(resolvedBrick, sortDataAcc, this.props.sorted), []);
-
-      	this.setState({
-      	  dataSource: this.state.dataSource.cloneWithRows(resortedData),
-          sameData: false,
-      	});
-      } else {
-        this.setState({
-          sameData: true
-        })
-      }
-    } else {
+    if (this.props.refreshing != nextProps.refreshing) {
       this.resolveBricks(nextProps);
     }
   }
 
   resolveBricks({ bricks, columns, page }) {
-    bricks
+      let sortedData = page == 1 ? [] : this.state._sortedData 
+
+      var parent = this
+      let counter = 0 
+
+      let adjustedBricks = bricks
       .map((brick, index) => assignObjectColumn(columns, index, brick))
       .map((brick, index) => assignObjectIndex(index, brick))
       .map(brick => resolveImage(brick))
       .map(resolveTask => resolveTask.fork(
         (err) => console.warn('Image failed to load'),
         (resolvedBrick) => {
-            this.setState(state => {
-              const sortedData = _insertIntoColumn(resolvedBrick, page == 1 ? [] : state._sortedData, this.props.sorted);
-              return {
-                dataSource: state.dataSource.cloneWithRows(sortedData),
-                _sortedData: sortedData,
-                _resolvedData: [...state._resolvedData, resolvedBrick],
-                sameData: false
-              }
-            });;
-        }));
+            //sortedData = _insertIntoColumn(resolvedBrick, page == 1 ? [] : this.state._sortedData, false);
+            sortedData = _insertIntoColumn(resolvedBrick, sortedData, false);
+            counter ++
+            if(counter == bricks.length) {
+              this.setState(state => {
+                return {
+                  dataSource: state.dataSource.cloneWithRows(sortedData),
+                  _sortedData: sortedData,
+                  //_resolvedData: [...state._resolvedData, resolvedBrick],
+                }
+              })
+            }            
+      }));
+      
+      /*this.setState(state => {
+        return {
+          dataSource: state.dataSource.cloneWithRows(sortedData),
+          _sortedData: sortedData,
+          //_resolvedData: [...state._resolvedData, resolvedBrick],
+        }
+      }, () => console.log(this.state.dataSource));*/
   }
 
   _setParentDimensions(event) {
@@ -144,6 +141,8 @@ export default class Masonry extends Component {
 
   render() {
     //alert('render')
+    console.log('3. Masonry rendered ...')
+    
     return (
   	<View style={{flex: 1}} onLayout={(event) => this._setParentDimensions(event)}>
  	    <ListView

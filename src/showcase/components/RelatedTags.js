@@ -11,6 +11,12 @@ import variables, { font, layout, } from '../../styles/variables'
 import LinearGradient from 'react-native-linear-gradient'
 
 export default class RelatedTags extends Component {
+	
+	shouldComponentUpdate(nextProps, nextState) {
+		if(this.props.suggestedTags.get('fetching') != nextProps.suggestedTags.get('fetching')) return true
+			return false
+	}
+
 	render() {
 
 		var { 

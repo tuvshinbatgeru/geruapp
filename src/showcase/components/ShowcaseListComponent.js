@@ -21,6 +21,7 @@ import NavBarSearch from '../../components/NavBarSearch'
 import RelatedTags from './RelatedTags'
 import Masonry from '../../components/react-native-masonry/Masonry'
 import FastImage from 'react-native-fast-image'
+import ImageLoader from 'react-native-smart-image-loader'
 //import Masonry from '../../components/Masonry'
 //import MasonryList from '../../components/MasonryList'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -47,10 +48,11 @@ const _stateFromProps = ({ portfolios }) => {
 							<Text style={[styles.caption, { textAlign: 'justify', color: variables.BRAND_GRAY, }]}>{item.caption}</Text>
 						</View>
 						<View style={[layout.row, layout.centerCenter, { height: 30, }]}>
-							<View style={[{ width: 30, }]}>
-								<Image style={{ width: null, height: null, flex: 1, borderRadius: 30, }}
-									   source={{ uri: item.user.avatar_url }}
+							<View style={[{ width: 30, borderRadius: 30, backgroundColor: 'red', overflow: 'hidden', }]}>
+								<FastImage style={{ width: 30, height: 30 }}
+									       source={{ uri: item.user.avatar_url }}
 								/>
+								<View style={styles.fixCircleClipping}/>
 							</View>	
 							<View style={[{ flex: 1, paddingLeft: 10, }]}>
 								<Text style={[layout.h2, { fontFamily: font.regular, fontSize: 13, }]}>{item.user.first_name} {item.user.last_name}</Text>
@@ -213,11 +215,12 @@ export default class ShowcaseListComponent extends Component {
 	    if(tempHideNavbar != hideNavbar) {
 		    this.setState({
 		    	hideNavbar: tempHideNavbar
-		    })
+		    }, () => this.props.onToggleTabBar(tempHideNavbar))
 		}
 	}
 
 	render() {
+		//alert('render')
 		let {
 			suggestedTags,
 			tags,
@@ -253,6 +256,7 @@ export default class ShowcaseListComponent extends Component {
 				<View style={{ flex: 1, paddingHorizontal: 8 }}>
 					<Masonry
 			            //sorted
+			            //hideNavbar={hideNavbar}
 			            page={this.state.page}
 			            refreshing={portfolios.get('fetching')}
 			            topOffset={155}
@@ -264,7 +268,7 @@ export default class ShowcaseListComponent extends Component {
 						onEndThreshhold={0.5}
 			            columns={2}
 			            onScroll={this.masonryScrolled}
-			            customImageComponent={Image}
+			            customImageComponent={FastImage}
 			            showsVerticalScrollIndicator={true}
 			            //renderFooter={this._renderFooter}
 			        />
@@ -285,6 +289,28 @@ export default class ShowcaseListComponent extends Component {
 		)
 	}
 }
+
+/*
+<Masonry
+			            //sorted
+			            //hideNavbar={hideNavbar}
+			            page={this.state.page}
+			            refreshing={portfolios.get('fetching')}
+			            topOffset={155}
+			            bricks={this.state.showcaseData}
+			            imageContainerStyle={{
+			            	borderRadius: 5, 
+			            }}
+			            onEndReached={this._loadMore}
+						onEndThreshhold={0.5}
+			            columns={2}
+			            onScroll={this.masonryScrolled}
+			            customImageComponent={FastImage}
+			            showsVerticalScrollIndicator={true}
+			            //renderFooter={this._renderFooter}
+			        />
+*/
+
 
 var styles = StyleSheet.create({
 	h4: {
@@ -344,6 +370,17 @@ var styles = StyleSheet.create({
 		fontSize: 20,
 	    height: 22,
 	    color: 'white',
+	},
+
+	fixCircleClipping: {
+	    position: 'absolute',
+	    top: -30,
+	    bottom: -30,
+	    right: -30,
+	    left: -30,
+	    borderRadius: 30,
+	    borderWidth: 30,
+	    borderColor: '#fff'
 	}
 })
 

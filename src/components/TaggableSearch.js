@@ -8,6 +8,11 @@ const IconSet = createIconSetFromIcoMoon(brandLocationConfig)
 import variables, { layout, font } from '../styles/variables'
 
 export default class TaggableSearch extends Component {
+  
+  shouldComponentUpdate(nextProps, nextState) {
+      if(this.props.tags.length != nextProps.tags.length) return true
+      return false 
+  }
 
   render() {
 

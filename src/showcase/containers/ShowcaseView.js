@@ -29,7 +29,14 @@ class ShowcaseView extends Component {
 	}
 
 	componentWillMount() {
+		//this.getPortfolios(1)
+	    //this.props.actions.getPortfolios([], 1)
 	    this.props.actions.getShowcaseSuggestedTags('hat')
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		if(nextProps.tabBarVisible != this.props.tabBarVisible) return false
+		return true
 	}
 
 	async onSuggestedTagPressed(tag) {
@@ -44,12 +51,12 @@ class ShowcaseView extends Component {
 	}
 
 	getPortfolios(page) {
-		/*let {
+		let {
 			showcase
-		} = this.props*/
+		} = this.props
 
-		this.props.actions.getPortfolios([], page)
-		//this.props.actions.getPortfolios(showcase.get('tags'), page)
+		//this.props.actions.getPortfolios([], page)
+		this.props.actions.getPortfolios(showcase.get('tags'), page)
 	}
 
 	toggleSearchScene() {
@@ -61,6 +68,8 @@ class ShowcaseView extends Component {
 			showcase
 		} = this.props
 
+		//console.log('1. Container rendered.')
+
 		return (
 			<ShowcaseListComponent portfolios={this.props.showcase.portfolios} 
 								   tags={showcase.get('tags')}
@@ -68,6 +77,7 @@ class ShowcaseView extends Component {
 								   onGetPortfolios={this.getPortfolios}
 								   onToggleSearchScene={this.toggleSearchScene}
 								   onSuggestedTagPressed={this.onSuggestedTagPressed}
+								   onToggleTabBar={this.props.onToggleTabBar}
 			/>	
 		)
 	}
